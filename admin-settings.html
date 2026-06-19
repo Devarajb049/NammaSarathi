@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>System Settings - NammaSarathi</title>
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Custom stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: {
+              50: '#f0fdf4',
+              100: '#dcfce7',
+              200: '#bbf7d0',
+              300: '#86efac',
+              400: '#4ade80',
+              500: '#22c55e',
+              600: '#16a34a',
+              700: '#15803d',
+              800: '#166534',
+              900: '#14532d',
+            },
+            secondary: {
+              50: '#f8fafc',
+              100: '#f1f5f9',
+              200: '#e2e8f0',
+              300: '#cbd5e1',
+              400: '#94a3b8',
+              500: '#64748b',
+              600: '#475569',
+              700: '#334155',
+              800: '#1e293b',
+              900: '#0f172a',
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+</head>
+
+<body class="min-h-screen bg-secondary-50 text-secondary-900 flex antialiased">
+
+  <!-- Auth Validation and Sidebar utilities -->
+  <script src="js/admin.js"></script>
+
+  <!-- Mobile header menu -->
+  <div class="fixed top-0 inset-x-0 bg-white shadow-sm h-14 flex items-center px-4 z-30 md:hidden justify-between">
+    <button id="sidebar-toggle" class="p-2 bg-secondary-100 rounded-lg text-secondary-700 hover:bg-secondary-200">
+      <i class="fa-solid fa-bars text-lg"></i>
+    </button>
+    <div class="flex items-center space-x-2">
+      <i class="fa-solid fa-car text-primary-600 text-xl"></i>
+      <span class="font-bold text-secondary-900 text-sm">NammaSarathi</span>
+    </div>
+    <div class="w-8"></div>
+  </div>
+
+  <!-- Sidebar overlay -->
+  <div id="sidebar-overlay" class="fixed inset-0 bg-black/50 z-30 hidden md:hidden"></div>
+
+  <!-- Navigation Sidebar Container -->
+  <aside id="admin-sidebar"
+    class="fixed md:static inset-y-0 left-0 z-40 w-64 bg-secondary-900 flex flex-col justify-between transform -translate-x-full md:translate-x-0 transition-transform duration-300 ease-in-out">
+    <div class="flex flex-col h-full">
+      <div class="p-6 border-b border-secondary-800">
+        <a href="index.html" class="flex items-center space-x-2">
+          <i class="fa-solid fa-car text-primary-400 text-2xl"></i>
+          <span class="text-xl font-bold text-white">NammaSarathi</span>
+        </a>
+        <span class="text-xs text-secondary-400 mt-1 block">Admin Panel</span>
+      </div>
+
+      <nav class="flex-1 p-4">
+        <ul class="space-y-2">
+          <li>
+            <a href="admin-dashboard.html"
+              class="flex items-center gap-3 px-4 py-3 rounded-lg text-secondary-300 hover:bg-secondary-800 hover:text-white transition-colors">
+              <i class="fa-solid fa-chart-line w-5"></i>
+              <span>Dashboard</span>
+            </a>
+          </li>
+          <li>
+            <a href="admin-bookings.html"
+              class="flex items-center gap-3 px-4 py-3 rounded-lg text-secondary-300 hover:bg-secondary-800 hover:text-white transition-colors">
+              <i class="fa-solid fa-calendar w-5"></i>
+              <span>Bookings</span>
+            </a>
+          </li>
+          <li>
+            <a href="admin-drivers.html"
+              class="flex items-center gap-3 px-4 py-3 rounded-lg text-secondary-300 hover:bg-secondary-800 hover:text-white transition-colors">
+              <i class="fa-solid fa-users w-5"></i>
+              <span>Drivers</span>
+            </a>
+          </li>
+          <li>
+            <a href="admin-schedule.html"
+              class="flex items-center gap-3 px-4 py-3 rounded-lg text-secondary-300 hover:bg-secondary-800 hover:text-white transition-colors">
+              <i class="fa-solid fa-clock w-5"></i>
+              <span>Schedule</span>
+            </a>
+          </li>
+          <li>
+            <a href="admin-settings.html"
+              class="flex items-center gap-3 px-4 py-3 rounded-lg text-white bg-primary-600 transition-colors">
+              <i class="fa-solid fa-gear w-5"></i>
+              <span>Settings</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+      <div class="p-4 border-t border-secondary-800">
+        <div class="px-4 py-2 mb-3">
+          <p class="text-white text-sm font-medium">admin@gmail.com</p>
+          <p class="text-secondary-400 text-xs">Administrator</p>
+        </div>
+        <button
+          class="logout-btn flex items-center gap-3 px-4 py-3 w-full rounded-lg text-secondary-300 hover:bg-red-600 hover:text-white transition-colors">
+          <i class="fa-solid fa-right-from-bracket"></i>
+          <span>Logout</span>
+        </button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main Workspace -->
+  <main class="flex-1 p-6 md:p-10 pt-20 md:pt-10 overflow-y-auto min-h-screen">
+    <!-- Header -->
+    <div class="mb-8">
+      <h1 class="text-2xl font-bold text-secondary-900 font-semibold">System Settings</h1>
+      <p class="text-secondary-600 text-sm">Configure office locations, phone hotlines, and emails visible to public
+        visitors.</p>
+    </div>
+
+    <!-- Settings Panel Form -->
+    <div class="bg-white rounded-xl shadow-sm border border-secondary-200/50 max-w-2xl overflow-hidden">
+      <div class="p-6 border-b border-secondary-200 bg-secondary-50">
+        <h2 class="text-lg font-bold text-secondary-900 flex items-center gap-2">
+          <i class="fa-solid fa-envelope-open-text text-primary-600"></i> Contact & Operating Info
+        </h2>
+      </div>
+
+      <form id="settings-form" class="p-6 space-y-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <!-- Telephone number -->
+          <div class="space-y-1.5">
+            <label for="settings-phone-input" class="text-xs font-bold text-secondary-600">Hotline Phone Number
+              *</label>
+            <div class="relative">
+              <i class="fa-solid fa-phone absolute left-3 top-1/2 -translate-y-1/2 text-secondary-400 text-sm"></i>
+              <input type="text" id="settings-phone-input" required
+                class="w-full pl-9 pr-4 py-2.5 border border-secondary-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary-500"
+                placeholder="+91 98765 43210" />
+            </div>
+          </div>
+
+          <!-- Email Address -->
+          <div class="space-y-1.5">
+            <label for="settings-email-input" class="text-xs font-bold text-secondary-600">Support Email Address
+              *</label>
+            <div class="relative">
+              <i class="fa-solid fa-envelope absolute left-3 top-1/2 -translate-y-1/2 text-secondary-400 text-sm"></i>
+              <input type="email" id="settings-email-input" required
+                class="w-full pl-9 pr-4 py-2.5 border border-secondary-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary-500"
+                placeholder="info@nammasarathi.in" />
+            </div>
+          </div>
+        </div>
+
+        <!-- Working Hours -->
+        <div class="space-y-1.5">
+          <label for="settings-hours-input" class="text-xs font-bold text-secondary-600">Operating Hours *</label>
+          <div class="relative">
+            <i class="fa-solid fa-clock absolute left-3 top-1/2 -translate-y-1/2 text-secondary-400 text-sm"></i>
+            <input type="text" id="settings-hours-input" required
+              class="w-full pl-9 pr-4 py-2.5 border border-secondary-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary-500"
+              placeholder="24 Hours, 7 Days a Week" />
+          </div>
+        </div>
+
+        <!-- Address -->
+        <div class="space-y-1.5">
+          <label for="settings-address-input" class="text-xs font-bold text-secondary-600">Office Location Address
+            *</label>
+          <div class="relative">
+            <i class="fa-solid fa-map-pin absolute left-3 top-3 text-secondary-400 text-sm"></i>
+            <textarea id="settings-address-input" rows="3" required
+              class="w-full pl-9 pr-4 py-2.5 border border-secondary-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 resize-none"
+              placeholder="Hyderabad, Telangana, India - 500001"></textarea>
+          </div>
+        </div>
+
+        <!-- Buttons -->
+        <div class="pt-4 border-t border-secondary-100 flex justify-end">
+          <button type="submit"
+            class="bg-primary-600 hover:bg-primary-700 text-white font-semibold py-2.5 px-6 rounded-lg text-sm shadow-md transition-colors">
+            <i class="fa-solid fa-floppy-disk mr-1"></i> Save Changes
+          </button>
+        </div>
+      </form>
+    </div>
+  </main>
+
+  <!-- Logic Script -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Load initial data
+      const settings = getAdminSettings();
+
+      document.getElementById('settings-phone-input').value = settings.phone;
+      document.getElementById('settings-email-input').value = settings.email;
+      document.getElementById('settings-hours-input').value = settings.hours;
+      document.getElementById('settings-address-input').value = settings.address;
+
+      // Submit form
+      document.getElementById('settings-form').addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        const phone = document.getElementById('settings-phone-input').value.trim();
+        const email = document.getElementById('settings-email-input').value.trim();
+        const hours = document.getElementById('settings-hours-input').value.trim();
+        const address = document.getElementById('settings-address-input').value.trim();
+
+        const updatedSettings = { phone, email, hours, address };
+        saveAdminSettings(updatedSettings);
+
+        alert("System settings updated successfully!\nFront-end pages will display these new details.");
+      });
+    });
+  </script>
+</body>
+
+</html>

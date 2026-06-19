@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Login - NammaSarathi</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Custom stylesheet -->
+    <link rel="stylesheet" href="css/style.css">
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: {
+                50: '#f0fdf4',
+                100: '#dcfce7',
+                200: '#bbf7d0',
+                300: '#86efac',
+                400: '#4ade80',
+                500: '#22c55e',
+                600: '#16a34a',
+                700: '#15803d',
+                800: '#166534',
+                900: '#14532d',
+              },
+              secondary: {
+                50: '#f8fafc',
+                100: '#f1f5f9',
+                200: '#e2e8f0',
+                300: '#cbd5e1',
+                400: '#94a3b8',
+                500: '#64748b',
+                600: '#475569',
+                700: '#334155',
+                800: '#1e293b',
+                900: '#0f172a',
+              }
+            },
+            fontFamily: {
+              sans: ['Inter', 'system-ui', 'sans-serif'],
+            }
+          }
+        }
+      }
+    </script>
+  </head>
+  <body class="min-h-screen bg-gradient-to-br from-secondary-900 via-secondary-800 to-secondary-900 flex items-center justify-center p-4 antialiased">
+
+    <div class="max-w-md w-full space-y-8">
+      <!-- Logo & Header -->
+      <div class="text-center">
+        <div class="inline-flex items-center justify-center w-16 h-16 bg-primary-600 rounded-2xl shadow-lg shadow-primary-600/20 mb-4">
+          <i class="fa-solid fa-car text-white text-3xl"></i>
+        </div>
+        <h1 class="text-2xl font-bold text-white tracking-wide">NammaSarathi Admin</h1>
+        <p class="text-secondary-400 mt-2 text-sm">Sign in to access the admin dashboard</p>
+      </div>
+
+      <!-- Login Form Card -->
+      <div class="bg-white rounded-2xl shadow-2xl p-8 border border-secondary-800/10">
+        <form id="login-form" class="space-y-6">
+          <!-- Alert box for errors -->
+          <div id="error-alert" class="hidden bg-red-50 border border-red-200 rounded-lg p-4 flex items-center gap-3">
+            <i class="fa-solid fa-circle-exclamation text-red-600 flex-shrink-0 text-lg"></i>
+            <p class="text-red-700 text-sm" id="error-message">Invalid email or password</p>
+          </div>
+
+          <!-- Email -->
+          <div class="space-y-2">
+            <label for="email" class="block text-sm font-semibold text-secondary-700">Email Address</label>
+            <div class="relative">
+              <i class="fa-solid fa-envelope absolute left-3 top-1/2 -translate-y-1/2 text-secondary-400 text-sm"></i>
+              <input
+                type="email"
+                id="email"
+                required
+                class="w-full pl-10 pr-4 py-3 border border-secondary-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent text-secondary-900 transition-all duration-200"
+                placeholder="admin@gmail.com"
+              />
+            </div>
+          </div>
+
+          <!-- Password -->
+          <div class="space-y-2">
+            <label for="password" class="block text-sm font-semibold text-secondary-700">Password</label>
+            <div class="relative">
+              <i class="fa-solid fa-lock absolute left-3 top-1/2 -translate-y-1/2 text-secondary-400 text-sm"></i>
+              <input
+                type="password"
+                id="password"
+                required
+                class="w-full pl-10 pr-4 py-3 border border-secondary-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent text-secondary-900 transition-all duration-200"
+                placeholder="Enter your password"
+              />
+            </div>
+          </div>
+
+          <!-- Sign In Button -->
+          <button
+            type="submit"
+            id="submit-btn"
+            class="w-full bg-primary-600 hover:bg-primary-700 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-200 shadow-md shadow-primary-600/10 hover:shadow-lg focus:outline-none flex items-center justify-center gap-2"
+          >
+            Sign In
+          </button>
+        </form>
+
+        <!-- Demo credentials box -->
+        <div class="mt-6 pt-6 border-t border-secondary-100 space-y-2">
+          <p class="text-xs text-secondary-400 text-center uppercase tracking-wider font-semibold">Demo Credentials</p>
+          <div class="bg-secondary-50 rounded-xl p-3 text-center border border-secondary-100">
+            <p class="text-xs text-secondary-600">
+              <strong>Email:</strong> admin@gmail.com
+            </p>
+            <p class="text-xs text-secondary-600 mt-1">
+              <strong>Password:</strong> 123
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Back to main website -->
+      <div class="text-center">
+        <a href="index.html" class="text-primary-400 hover:text-primary-300 text-sm font-medium hover:underline transition-all duration-200">
+          <i class="fa-solid fa-arrow-left text-xs mr-1"></i> Back to NammaSarathi Website
+        </a>
+      </div>
+    </div>
+
+    <!-- Login validation JS script -->
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        // Redirect if already logged in
+        if (localStorage.getItem('admin_logged_in') === 'true') {
+          window.location.href = 'admin-dashboard.html';
+        }
+
+        const loginForm = document.getElementById('login-form');
+        const emailInput = document.getElementById('email');
+        const passwordInput = document.getElementById('password');
+        const errorAlert = document.getElementById('error-alert');
+        const submitBtn = document.getElementById('submit-btn');
+
+        loginForm.addEventListener('submit', (e) => {
+          e.preventDefault();
+          errorAlert.classList.add('hidden');
+          
+          const email = emailInput.value.trim();
+          const password = passwordInput.value;
+
+          // Mock loading state
+          submitBtn.disabled = true;
+          submitBtn.innerHTML = '<i class="fa-solid fa-circle-notch animate-spin mr-2"></i> Signing in...';
+
+          setTimeout(() => {
+            if (email === 'admin@gmail.com' && password === '123') {
+              localStorage.setItem('admin_logged_in', 'true');
+              window.location.href = 'admin-dashboard.html';
+            } else {
+              errorAlert.classList.remove('hidden');
+              submitBtn.disabled = false;
+              submitBtn.innerHTML = 'Sign In';
+            }
+          }, 800);
+        });
+      });
+    </script>
+  </body>
+</html>

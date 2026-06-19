@@ -1,0 +1,533 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Manage Bookings - NammaSarathi</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Custom stylesheet -->
+    <link rel="stylesheet" href="css/style.css">
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: {
+                50: '#f0fdf4',
+                100: '#dcfce7',
+                200: '#bbf7d0',
+                300: '#86efac',
+                400: '#4ade80',
+                500: '#22c55e',
+                600: '#16a34a',
+                700: '#15803d',
+                800: '#166534',
+                900: '#14532d',
+              },
+              secondary: {
+                50: '#f8fafc',
+                100: '#f1f5f9',
+                200: '#e2e8f0',
+                300: '#cbd5e1',
+                400: '#94a3b8',
+                500: '#64748b',
+                600: '#475569',
+                700: '#334155',
+                800: '#1e293b',
+                900: '#0f172a',
+              }
+            },
+            fontFamily: {
+              sans: ['Inter', 'system-ui', 'sans-serif'],
+            }
+          }
+        }
+      }
+    </script>
+  </head>
+  <body class="min-h-screen bg-secondary-50 text-secondary-900 flex antialiased">
+
+    <!-- Auth Validation and Sidebar utilities -->
+    <script src="js/admin.js"></script>
+
+    <!-- Mobile header menu (visible only on mobile) -->
+    <div class="fixed top-0 inset-x-0 bg-white shadow-sm h-14 flex items-center px-4 z-30 md:hidden justify-between">
+      <button id="sidebar-toggle" class="p-2 bg-secondary-100 rounded-lg text-secondary-700 hover:bg-secondary-200">
+        <i class="fa-solid fa-bars text-lg"></i>
+      </button>
+      <div class="flex items-center space-x-2">
+        <i class="fa-solid fa-car text-primary-600 text-xl"></i>
+        <span class="font-bold text-secondary-900 text-sm">NammaSarathi</span>
+      </div>
+      <div class="w-8"></div>
+    </div>
+
+    <!-- Sidebar overlay -->
+    <div id="sidebar-overlay" class="fixed inset-0 bg-black/50 z-30 hidden md:hidden"></div>
+
+    <!-- Navigation Sidebar Container -->
+    <aside id="admin-sidebar" class="fixed md:static inset-y-0 left-0 z-40 w-64 bg-secondary-900 flex flex-col justify-between transform -translate-x-full md:translate-x-0 transition-transform duration-300 ease-in-out">
+      <div class="flex flex-col h-full">
+        <div class="p-6 border-b border-secondary-800">
+          <a href="index.html" class="flex items-center space-x-2">
+            <i class="fa-solid fa-car text-primary-400 text-2xl"></i>
+            <span class="text-xl font-bold text-white">NammaSarathi</span>
+          </a>
+          <span class="text-xs text-secondary-400 mt-1 block">Admin Panel</span>
+        </div>
+
+        <nav class="flex-1 p-4">
+          <ul class="space-y-2">
+            <li>
+              <a href="admin-dashboard.html" class="flex items-center gap-3 px-4 py-3 rounded-lg text-secondary-300 hover:bg-secondary-800 hover:text-white transition-colors">
+                <i class="fa-solid fa-chart-line w-5"></i>
+                <span>Dashboard</span>
+              </a>
+            </li>
+            <li>
+              <a href="admin-bookings.html" class="flex items-center gap-3 px-4 py-3 rounded-lg text-white bg-primary-600 transition-colors">
+                <i class="fa-solid fa-calendar w-5"></i>
+                <span>Bookings</span>
+              </a>
+            </li>
+            <li>
+              <a href="admin-drivers.html" class="flex items-center gap-3 px-4 py-3 rounded-lg text-secondary-300 hover:bg-secondary-800 hover:text-white transition-colors">
+                <i class="fa-solid fa-users w-5"></i>
+                <span>Drivers</span>
+              </a>
+            </li>
+            <li>
+              <a href="admin-schedule.html" class="flex items-center gap-3 px-4 py-3 rounded-lg text-secondary-300 hover:bg-secondary-800 hover:text-white transition-colors">
+                <i class="fa-solid fa-clock w-5"></i>
+                <span>Schedule</span>
+              </a>
+            </li>
+            <li>
+              <a href="admin-settings.html" class="flex items-center gap-3 px-4 py-3 rounded-lg text-secondary-300 hover:bg-secondary-800 hover:text-white transition-colors">
+                <i class="fa-solid fa-gear w-5"></i>
+                <span>Settings</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+
+        <div class="p-4 border-t border-secondary-800">
+          <div class="px-4 py-2 mb-3">
+            <p class="text-white text-sm font-medium">admin@gmail.com</p>
+            <p class="text-secondary-400 text-xs">Administrator</p>
+          </div>
+          <button class="logout-btn flex items-center gap-3 px-4 py-3 w-full rounded-lg text-secondary-300 hover:bg-red-600 hover:text-white transition-colors">
+            <i class="fa-solid fa-right-from-bracket"></i>
+            <span>Logout</span>
+          </button>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Workspace -->
+    <main class="flex-1 p-6 md:p-10 pt-20 md:pt-10 overflow-y-auto min-h-screen">
+      <!-- Header -->
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
+        <div>
+          <h1 class="text-2xl font-bold text-secondary-900 font-semibold">Trips & Bookings</h1>
+          <p class="text-secondary-600 text-sm">Review incoming request bookings, update trip states, and assign acting drivers.</p>
+        </div>
+      </div>
+
+      <!-- Bookings Dashboard Grid -->
+      <div class="bg-white rounded-xl shadow-sm border border-secondary-200/50 overflow-hidden">
+        <!-- Control Bar -->
+        <div class="p-6 border-b border-secondary-200 flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+          <!-- Search Bar -->
+          <div class="relative w-full lg:max-w-xs">
+            <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-secondary-400 text-sm"></i>
+            <input
+              type="text"
+              id="search-input"
+              placeholder="Search by customer name or ID..."
+              class="w-full pl-9 pr-4 py-2 border border-secondary-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary-500"
+            />
+          </div>
+
+          <!-- Filters -->
+          <div class="flex flex-wrap items-center gap-2 text-xs font-semibold">
+            <button onclick="changeFilter('all')" id="filter-all" class="px-3.5 py-1.5 rounded-lg bg-primary-600 text-white transition-all">All</button>
+            <button onclick="changeFilter('pending')" id="filter-pending" class="px-3.5 py-1.5 rounded-lg bg-secondary-100 text-secondary-600 hover:bg-secondary-200 transition-all">Pending</button>
+            <button onclick="changeFilter('confirmed')" id="filter-confirmed" class="px-3.5 py-1.5 rounded-lg bg-secondary-100 text-secondary-600 hover:bg-secondary-200 transition-all">Confirmed</button>
+            <button onclick="changeFilter('completed')" id="filter-completed" class="px-3.5 py-1.5 rounded-lg bg-secondary-100 text-secondary-600 hover:bg-secondary-200 transition-all">Completed</button>
+            <button onclick="changeFilter('cancelled')" id="filter-cancelled" class="px-3.5 py-1.5 rounded-lg bg-secondary-100 text-secondary-600 hover:bg-secondary-200 transition-all">Cancelled</button>
+          </div>
+        </div>
+
+        <!-- Table UI -->
+        <div class="overflow-x-auto">
+          <table class="w-full text-left min-w-[950px]">
+            <thead class="bg-secondary-50 text-secondary-600 text-xs font-bold uppercase border-b border-secondary-200 tracking-wider">
+              <tr>
+                <th class="px-6 py-4">Booking ID</th>
+                <th class="px-6 py-4">Customer</th>
+                <th class="px-6 py-4">Service</th>
+                <th class="px-6 py-4">Pickup</th>
+                <th class="px-6 py-4">Driver</th>
+                <th class="px-6 py-4">Status</th>
+                <th class="px-6 py-4 text-right">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="bookings-table-body" class="divide-y divide-secondary-200 text-sm">
+              <!-- Rendered via JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+
+    <!-- Details Modal Drawer -->
+    <div id="details-modal" class="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4 hidden">
+      <div class="bg-white rounded-2xl shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto transition-transform duration-300 scale-95 opacity-0" id="modal-card">
+        <!-- Header -->
+        <div class="p-6 border-b border-secondary-200 flex justify-between items-center bg-secondary-50 rounded-t-2xl">
+          <div>
+            <h3 class="text-lg font-bold text-secondary-900">Booking Details & Management</h3>
+            <p id="modal-booking-id" class="text-xs text-secondary-500 font-semibold mt-0.5">BK000</p>
+          </div>
+          <button onclick="closeModal()" class="p-2 hover:bg-secondary-200 rounded-lg text-secondary-500 transition-colors">
+            <i class="fa-solid fa-xmark text-lg"></i>
+          </button>
+        </div>
+
+        <!-- Body -->
+        <div class="p-6 space-y-6">
+          <div class="grid md:grid-cols-2 gap-6">
+            <!-- Customer info -->
+            <div class="space-y-3">
+              <h4 class="font-bold text-secondary-900 border-b border-secondary-100 pb-2 text-sm">Customer Information</h4>
+              <p class="text-secondary-600 text-sm">
+                <strong class="text-secondary-800">Name:</strong> <span id="modal-cust-name">-</span>
+              </p>
+              <p class="text-secondary-600 text-sm flex items-center gap-2">
+                <i class="fa-solid fa-envelope text-secondary-400"></i> <span id="modal-cust-email">-</span>
+              </p>
+              <p class="text-secondary-600 text-sm flex items-center gap-2">
+                <i class="fa-solid fa-phone text-secondary-400"></i> <span id="modal-cust-phone">-</span>
+              </p>
+            </div>
+
+            <!-- Service Details -->
+            <div class="space-y-3">
+              <h4 class="font-bold text-secondary-900 border-b border-secondary-100 pb-2 text-sm">Trip Details</h4>
+              <p class="text-secondary-600 text-sm">
+                <strong class="text-secondary-800">Service:</strong> <span id="modal-trip-service">-</span>
+              </p>
+              <p class="text-secondary-600 text-sm">
+                <strong class="text-secondary-800">Vehicle:</strong> <span id="modal-trip-vehicle">-</span>
+              </p>
+              <p class="text-secondary-600 text-sm">
+                <strong class="text-secondary-800">Duration:</strong> <span id="modal-trip-duration">-</span>
+              </p>
+            </div>
+          </div>
+
+          <!-- Schedule & Location -->
+          <div class="space-y-3">
+            <h4 class="font-bold text-secondary-900 border-b border-secondary-100 pb-2 text-sm">Schedule & Location</h4>
+            <div class="grid md:grid-cols-2 gap-4">
+              <div class="bg-secondary-50 border border-secondary-100 rounded-xl p-4 space-y-1">
+                <p class="text-xs text-secondary-500 font-bold uppercase tracking-wider">Pickup</p>
+                <p id="modal-pickup-date" class="font-bold text-secondary-900 text-sm">-</p>
+                <p id="modal-pickup-time" class="text-secondary-600 text-xs">-</p>
+                <p class="text-secondary-600 text-xs mt-2 flex items-center gap-1.5">
+                  <i class="fa-solid fa-map-pin text-primary-500"></i> <span id="modal-pickup-address">-</span>
+                </p>
+              </div>
+              <div class="bg-secondary-50 border border-secondary-100 rounded-xl p-4 space-y-1">
+                <p class="text-xs text-secondary-500 font-bold uppercase tracking-wider">Drop</p>
+                <p class="text-secondary-600 text-xs mt-1 flex items-center gap-1.5">
+                  <i class="fa-solid fa-location-arrow text-secondary-400"></i> <span id="modal-drop-address">-</span>
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Additional Notes -->
+          <div class="space-y-2">
+            <h4 class="font-bold text-secondary-900 border-b border-secondary-100 pb-2 text-sm">Additional Notes</h4>
+            <p id="modal-notes" class="text-secondary-600 text-sm italic bg-secondary-50 p-4 rounded-xl border border-secondary-100 whitespace-pre-line">-</p>
+          </div>
+
+          <!-- Status Adjuster & Driver Assign -->
+          <div class="bg-secondary-50 border border-secondary-200 rounded-xl p-4 space-y-4">
+            <h4 class="font-bold text-secondary-800 text-sm">Trip Management Options</h4>
+            <div class="grid sm:grid-cols-2 gap-4">
+              <!-- Driver -->
+              <div class="space-y-1.5">
+                <label for="assign-driver-select" class="text-xs font-semibold text-secondary-600">Assign Acting Driver</label>
+                <select id="assign-driver-select" class="w-full px-3 py-2 border border-secondary-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary-500">
+                  <!-- Options loaded dynamically -->
+                </select>
+              </div>
+              <!-- Status -->
+              <div class="space-y-1.5">
+                <label for="update-status-select" class="text-xs font-semibold text-secondary-600">Update Booking Status</label>
+                <select id="update-status-select" class="w-full px-3 py-2 border border-secondary-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary-500">
+                  <option value="pending">Pending Review</option>
+                  <option value="confirmed">Confirmed</option>
+                  <option value="completed">Completed</option>
+                  <option value="cancelled">Cancelled</option>
+                </select>
+              </div>
+            </div>
+            <div class="pt-2 flex justify-end gap-3 border-t border-secondary-200/50">
+              <button onclick="closeModal()" class="px-4 py-2 border border-secondary-300 text-secondary-700 hover:bg-secondary-100 rounded-lg text-sm font-semibold transition-colors">
+                Cancel
+              </button>
+              <button onclick="saveTripChanges()" class="bg-primary-600 hover:bg-primary-700 text-white font-semibold py-2 px-5 rounded-lg text-sm shadow-md transition-colors">
+                Apply Modifications
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Logic Script -->
+    <script>
+      let currentFilter = 'all';
+      let selectedBookingId = null;
+      let searchQuery = '';
+
+      function loadBookingsTable() {
+        const bookings = getBookings();
+        const tbody = document.getElementById('bookings-table-body');
+        tbody.innerHTML = '';
+
+        // Search & Filter
+        let filtered = bookings;
+        if (currentFilter !== 'all') {
+          filtered = filtered.filter(b => b.status === currentFilter);
+        }
+        if (searchQuery) {
+          const query = searchQuery.toLowerCase();
+          filtered = filtered.filter(b => 
+            b.id.toLowerCase().includes(query) || 
+            b.name.toLowerCase().includes(query) ||
+            b.phone.includes(query)
+          );
+        }
+
+        if (filtered.length === 0) {
+          tbody.innerHTML = `
+            <tr>
+              <td colspan="7" class="px-6 py-12 text-center text-secondary-400">
+                <i class="fa-solid fa-folder-open text-3xl mb-2 block"></i>
+                No bookings matches found.
+              </td>
+            </tr>
+          `;
+          return;
+        }
+
+        filtered.forEach(booking => {
+          const tr = document.createElement('tr');
+          tr.className = 'hover:bg-secondary-50/80 transition-colors';
+          
+          tr.innerHTML = `
+            <td class="px-6 py-4 whitespace-nowrap font-bold text-secondary-900">${booking.id}</td>
+            <td class="px-6 py-4 whitespace-nowrap">
+              <div class="font-semibold text-secondary-900">${booking.name}</div>
+              <div class="text-xs text-secondary-500">${booking.phone}</div>
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap">
+              <span class="text-secondary-700">${getServiceLabel(booking.serviceType)}</span>
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap">
+              <div class="text-secondary-900 font-semibold">${booking.pickupDate}</div>
+              <div class="text-xs text-secondary-500">${booking.pickupTime}</div>
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap text-secondary-600 font-medium">
+              ${booking.driver ? `<i class="fa-solid fa-user text-xs mr-1 text-primary-500"></i> ${booking.driver}` : '<span class="text-secondary-400 text-xs italic">Unassigned</span>'}
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap">
+              <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold border ${getStatusClass(booking.status)}">
+                ${booking.status.charAt(0).toUpperCase() + booking.status.slice(1)}
+              </span>
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap text-right text-sm">
+              <div class="flex justify-end gap-2">
+                <button onclick="openModal('${booking.id}')" class="p-2 text-secondary-500 hover:text-primary-600 hover:bg-primary-50 rounded-lg transition-all" title="Manage Details">
+                  <i class="fa-solid fa-eye text-sm"></i>
+                </button>
+                <button onclick="deleteBooking('${booking.id}')" class="p-2 text-secondary-500 hover:text-red-600 hover:bg-red-50 rounded-lg transition-all" title="Delete">
+                  <i class="fa-solid fa-trash-can text-sm"></i>
+                </button>
+              </div>
+            </td>
+          `;
+          tbody.appendChild(tr);
+        });
+      }
+
+      function getServiceLabel(type) {
+        const labels = {
+          acting: 'Acting Driver',
+          personal: 'Personal Driver',
+          outstation: 'Outstation',
+          event: 'Event/Corporate'
+        };
+        return labels[type] || type;
+      }
+
+      function getStatusClass(status) {
+        switch (status) {
+          case 'pending': return 'bg-yellow-100 text-yellow-800 border-yellow-200';
+          case 'confirmed': return 'bg-green-100 text-green-800 border-green-200';
+          case 'completed': return 'bg-blue-100 text-blue-800 border-blue-200';
+          case 'cancelled': return 'bg-red-100 text-red-800 border-red-200';
+          default: return 'bg-secondary-100 text-secondary-800 border-secondary-200';
+        }
+      }
+
+      function changeFilter(status) {
+        currentFilter = status;
+        document.querySelectorAll('[id^="filter-"]').forEach(btn => {
+          btn.className = 'px-3.5 py-1.5 rounded-lg bg-secondary-100 text-secondary-600 hover:bg-secondary-200 transition-all';
+        });
+        const activeBtn = document.getElementById(`filter-${status}`);
+        if (activeBtn) {
+          activeBtn.className = 'px-3.5 py-1.5 rounded-lg bg-primary-600 text-white transition-all';
+        }
+        loadBookingsTable();
+      }
+
+      function deleteBooking(id) {
+        if (confirm(`Are you sure you want to delete booking ${id}?`)) {
+          let bookings = getBookings();
+          bookings = bookings.filter(b => b.id !== id);
+          saveBookings(bookings);
+          loadBookingsTable();
+        }
+      }
+
+      // Modal management
+      function openModal(id) {
+        selectedBookingId = id;
+        const bookings = getBookings();
+        const booking = bookings.find(b => b.id === id);
+
+        if (!booking) return;
+
+        // Map text fields
+        document.getElementById('modal-booking-id').textContent = booking.id;
+        document.getElementById('modal-cust-name').textContent = booking.name;
+        document.getElementById('modal-cust-email').textContent = booking.email;
+        document.getElementById('modal-cust-phone').textContent = booking.phone;
+        
+        document.getElementById('modal-trip-service').textContent = getServiceLabel(booking.serviceType);
+        document.getElementById('modal-trip-vehicle').textContent = booking.vehicleType.toUpperCase();
+        document.getElementById('modal-trip-duration').textContent = booking.duration || 'Not specified';
+        
+        document.getElementById('modal-pickup-date').textContent = booking.pickupDate;
+        document.getElementById('modal-pickup-time').textContent = booking.pickupTime;
+        document.getElementById('modal-pickup-address').textContent = booking.pickupLocation;
+        document.getElementById('modal-drop-address').textContent = booking.dropLocation;
+        document.getElementById('modal-notes').textContent = booking.notes || 'No special notes.';
+
+        // Load status select input
+        document.getElementById('update-status-select').value = booking.status;
+
+        // Load drivers
+        const drivers = getDrivers();
+        const driverSelect = document.getElementById('assign-driver-select');
+        driverSelect.innerHTML = '<option value="">-- Unassigned / Select Driver --</option>';
+        
+        drivers.forEach(driver => {
+          if (driver.status === 'Available' || driver.name === booking.driver) {
+            const opt = document.createElement('option');
+            opt.value = driver.name;
+            opt.textContent = `${driver.name} (${driver.status})`;
+            if (booking.driver === driver.name) opt.selected = true;
+            driverSelect.appendChild(opt);
+          }
+        });
+
+        // Show Backdrop modal card
+        const modal = document.getElementById('details-modal');
+        const card = document.getElementById('modal-card');
+        modal.classList.remove('hidden');
+        setTimeout(() => {
+          card.classList.remove('scale-95', 'opacity-0');
+          card.classList.add('scale-100', 'opacity-100');
+        }, 50);
+      }
+
+      function closeModal() {
+        const modal = document.getElementById('details-modal');
+        const card = document.getElementById('modal-card');
+        card.classList.remove('scale-100', 'opacity-100');
+        card.classList.add('scale-95', 'opacity-0');
+        setTimeout(() => {
+          modal.classList.add('hidden');
+          selectedBookingId = null;
+        }, 200);
+      }
+
+      function saveTripChanges() {
+        if (!selectedBookingId) return;
+
+        const driverSelect = document.getElementById('assign-driver-select');
+        const statusSelect = document.getElementById('update-status-select');
+
+        let bookings = getBookings();
+        const idx = bookings.findIndex(b => b.id === selectedBookingId);
+        
+        if (idx !== -1) {
+          const oldDriver = bookings[idx].driver;
+          const newDriver = driverSelect.value;
+          const newStatus = statusSelect.value;
+
+          bookings[idx].driver = newDriver;
+          bookings[idx].status = newStatus;
+          saveBookings(bookings);
+
+          // Update driver's state to On Trip if newly assigned
+          let drivers = getDrivers();
+          if (newDriver && newDriver !== oldDriver) {
+            const dIdx = drivers.findIndex(d => d.name === newDriver);
+            if (dIdx !== -1) {
+              drivers[dIdx].status = 'On Trip';
+            }
+          }
+          // Restore old driver status to Available if unassigned
+          if (oldDriver && oldDriver !== newDriver) {
+            const dIdx = drivers.findIndex(d => d.name === oldDriver);
+            if (dIdx !== -1) {
+              drivers[dIdx].status = 'Available';
+            }
+          }
+          saveDrivers(drivers);
+
+          alert(`Booking ${selectedBookingId} updated successfully!`);
+          closeModal();
+          loadBookingsTable();
+        }
+      }
+
+      document.addEventListener('DOMContentLoaded', () => {
+        loadBookingsTable();
+
+        // Search Input listener
+        document.getElementById('search-input').addEventListener('input', (e) => {
+          searchQuery = e.target.value;
+          loadBookingsTable();
+        });
+      });
+    </script>
+  </body>
+</html>

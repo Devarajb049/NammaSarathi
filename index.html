@@ -1,0 +1,695 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NammaSarathi - Professional Acting Driver Services</title>
+  <meta name="description"
+    content="Hyderabad's trusted acting driver service. Professional, verified drivers available for local, outstation, corporate, and event travel." />
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: {
+              50: '#f0fdf4',
+              100: '#dcfce7',
+              200: '#bbf7d0',
+              300: '#86efac',
+              400: '#4ade80',
+              500: '#22c55e',
+              600: '#16a34a',
+              700: '#15803d',
+              800: '#166534',
+              900: '#14532d',
+            },
+            secondary: {
+              50: '#f8fafc',
+              100: '#f1f5f9',
+              200: '#e2e8f0',
+              300: '#cbd5e1',
+              400: '#94a3b8',
+              500: '#64748b',
+              600: '#475569',
+              700: '#334155',
+              800: '#1e293b',
+              900: '#0f172a',
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+    }
+
+    .hover-lift {
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .hover-lift:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+    }
+  </style>
+</head>
+
+<body class="min-h-screen bg-white flex flex-col antialiased">
+
+  <!-- Header Navigation -->
+  <header class="bg-white shadow-sm sticky top-0 z-50">
+    <!-- Top Bar -->
+    <div class="bg-secondary-800 text-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-8">
+          <p class="text-xs text-secondary-300 hidden sm:block" data-i18n="top_bar_title">Hyderabad's Trusted Driver
+            Service</p>
+          <div class="flex items-center gap-2 ml-auto">
+            <i class="fa-solid fa-globe text-secondary-400 text-xs"></i>
+            <select id="language-select"
+              class="bg-transparent text-xs text-secondary-300 border-none outline-none cursor-pointer">
+              <option value="en" class="text-secondary-800">English</option>
+              <option value="te" class="text-secondary-800">తెలుగు</option>
+              <option value="hi" class="text-secondary-800">हिन्दी</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Navigation -->
+    <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-16">
+        <a href="index.html" class="flex items-center space-x-2">
+          <i class="fa-solid fa-car text-primary-600 text-2xl"></i>
+          <span class="text-xl font-bold text-secondary-900">NammaSarathi</span>
+        </a>
+
+        <!-- Desktop Navigation Links -->
+        <div class="hidden md:flex items-center space-x-8">
+          <a href="index.html"
+            class="text-sm font-medium transition-colors duration-200 text-secondary-600 hover:text-primary-600"
+            data-i18n="nav_home">Home</a>
+          <a href="about.html"
+            class="text-sm font-medium transition-colors duration-200 text-secondary-600 hover:text-primary-600"
+            data-i18n="nav_about">About</a>
+          <a href="services.html"
+            class="text-sm font-medium transition-colors duration-200 text-secondary-600 hover:text-primary-600"
+            data-i18n="nav_services">Services</a>
+          <a href="booking.html"
+            class="text-sm font-medium transition-colors duration-200 text-secondary-600 hover:text-primary-600"
+            data-i18n="nav_book_now">Book Now</a>
+          <a href="contact.html"
+            class="text-sm font-medium transition-colors duration-200 text-secondary-600 hover:text-primary-600"
+            data-i18n="nav_contact">Contact</a>
+          <a href="admin-login.html"
+            class="text-xs font-medium text-secondary-400 hover:text-secondary-600 transition-colors"
+            data-i18n="nav_admin">Admin</a>
+        </div>
+
+        <!-- Mobile menu button -->
+        <button id="mobile-menu-btn"
+          class="md:hidden p-2 rounded-lg text-secondary-600 hover:bg-gray-100 focus:outline-none">
+          <i class="fa-solid fa-bars h-6 w-6 text-xl"></i>
+        </button>
+      </div>
+
+      <!-- Mobile Navigation Menu -->
+      <div id="mobile-menu" class="md:hidden py-4 border-t hidden transition-all duration-300">
+        <div class="flex flex-col space-y-3">
+          <a href="index.html"
+            class="px-3 py-2 rounded-lg text-sm font-medium text-secondary-600 hover:bg-gray-50 hover:text-primary-600"
+            data-i18n="nav_home">Home</a>
+          <a href="about.html"
+            class="px-3 py-2 rounded-lg text-sm font-medium text-secondary-600 hover:bg-gray-50 hover:text-primary-600"
+            data-i18n="nav_about">About</a>
+          <a href="services.html"
+            class="px-3 py-2 rounded-lg text-sm font-medium text-secondary-600 hover:bg-gray-50 hover:text-primary-600"
+            data-i18n="nav_services">Services</a>
+          <a href="booking.html"
+            class="px-3 py-2 rounded-lg text-sm font-medium text-secondary-600 hover:bg-gray-50 hover:text-primary-600"
+            data-i18n="nav_book_now">Book Now</a>
+          <a href="contact.html"
+            class="px-3 py-2 rounded-lg text-sm font-medium text-secondary-600 hover:bg-gray-50 hover:text-primary-600"
+            data-i18n="nav_contact">Contact</a>
+          <a href="admin-login.html"
+            class="px-3 py-2 rounded-lg text-xs font-medium text-secondary-400 hover:bg-gray-50"
+            data-i18n="nav_admin">Admin</a>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Main Content Area -->
+  <main class="flex-1">
+
+    <!-- Hero Section -->
+    <section
+      class="relative bg-gradient-to-br from-primary-900 via-primary-800 to-primary-700 text-white overflow-hidden">
+      <div class="absolute inset-0 bg-black/20"></div>
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-28 relative">
+        <div class="grid lg:grid-cols-2 gap-12 items-center">
+          <div class="space-y-6">
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight" data-i18n="hero_title">
+              A Driver in Every Journey.
+            </h1>
+            <p class="text-lg md:text-xl text-primary-100 leading-relaxed" data-i18n="hero_subtitle">
+              Professional, verified, and experienced acting drivers ready to take the wheel whenever you need. Your
+              vehicle. Our expertise. Safe arrival, every time.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 pt-2">
+              <a href="booking.html"
+                class="bg-primary-600 hover:bg-primary-700 text-white font-medium py-3 px-8 rounded-lg transition-all duration-200 shadow-md hover:shadow-lg text-center"
+                data-i18n="btn_book_driver">
+                Book a Driver Now
+              </a>
+              <a href="services.html"
+                class="bg-transparent hover:bg-primary-50 text-white border-2 border-white hover:text-primary-800 font-medium py-3 px-8 rounded-lg transition-all duration-200 text-center"
+                data-i18n="btn_our_services">
+                Our Services
+              </a>
+            </div>
+          </div>
+          <div class="hidden lg:block">
+            <img src="https://images.unsplash.com/photo-1555215695-3004980ad54e?w=700&q=80&auto=format&fit=crop"
+              alt="Professional driver in car" class="rounded-2xl shadow-2xl border-4 border-white/10" />
+          </div>
+        </div>
+
+        <!-- Stats -->
+        <div class="grid grid-cols-3 gap-6 mt-16 pt-8 border-t border-white/10">
+          <div class="text-center">
+            <p class="text-3xl md:text-4xl font-bold text-white">5,000+</p>
+            <p class="text-primary-200 text-sm md:text-base mt-1" data-i18n="stats_trips">Trips Completed</p>
+          </div>
+          <div class="text-center">
+            <p class="text-3xl md:text-4xl font-bold text-white">50+</p>
+            <p class="text-primary-200 text-sm md:text-base mt-1" data-i18n="stats_drivers">Verified Drivers</p>
+          </div>
+          <div class="text-center">
+            <p class="text-3xl md:text-4xl font-bold text-white">4.9</p>
+            <p class="text-primary-200 text-sm md:text-base mt-1" data-i18n="stats_rating">Customer Rating</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 24/7 Available + Book Your Driver -->
+    <section class="py-16 bg-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid lg:grid-cols-2 gap-12 items-center">
+          <div class="space-y-6">
+            <div class="flex items-center gap-3">
+              <div class="w-12 h-12 bg-primary-100 rounded-full flex items-center justify-center text-primary-600">
+                <i class="fa-solid fa-phone text-xl"></i>
+              </div>
+              <div>
+                <p class="text-lg font-bold text-primary-600" data-i18n="why_24_7">24/7 Available Anytime</p>
+                <p class="text-secondary-600 text-sm font-semibold" data-i18n="why_book_driver">Book Your Driver</p>
+              </div>
+            </div>
+            <h2 class="text-3xl md:text-4xl font-bold text-secondary-900" data-i18n="why_title">
+              Schedule a Driver in Minutes
+            </h2>
+            <h3 class="text-xl font-semibold text-secondary-800" data-i18n="why_subtitle">
+              Why Book with NammaSarathi?
+            </h3>
+            <ul class="space-y-4">
+              <li class="flex items-start gap-3">
+                <i class="fa-solid fa-circle-check text-primary-600 mt-1"></i>
+                <span class="text-secondary-700" data-i18n="why_point_1">Trained and background-verified professional
+                  drivers for every trip.</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <i class="fa-solid fa-circle-check text-primary-600 mt-1"></i>
+                <span class="text-secondary-700" data-i18n="why_point_2">Flexible bookings for local trips, outstation
+                  travel, events, and more.</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <i class="fa-solid fa-circle-check text-primary-600 mt-1"></i>
+                <span class="text-secondary-700" data-i18n="why_point_3">Automated email confirmation with your driver's
+                  details once assigned.</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <i class="fa-solid fa-circle-check text-primary-600 mt-1"></i>
+                <span class="text-secondary-700" data-i18n="why_point_4">Available for two-wheelers and four-wheelers
+                  across Hyderabad and beyond.</span>
+              </li>
+            </ul>
+            <div class="pt-2">
+              <a href="booking.html"
+                class="bg-primary-600 hover:bg-primary-700 text-white font-medium py-3 px-6 rounded-lg transition-all duration-200 shadow-md hover:shadow-lg inline-flex items-center gap-2">
+                <span data-i18n="nav_book_now">Book Now</span> <i class="fa-solid fa-arrow-right"></i>
+              </a>
+            </div>
+          </div>
+          <div class="space-y-4">
+            <img src="https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?w=600&q=80&auto=format&fit=crop"
+              alt="Driver ready for trip" class="rounded-xl shadow-lg w-full object-cover h-[350px]" />
+            <div class="text-center">
+              <p class="text-secondary-900 font-bold text-lg" data-i18n="why_submit_title">Submit a Booking Request</p>
+              <p class="text-secondary-500 text-sm" data-i18n="why_submit_desc">Fill in your details and we will assign
+                a driver to you shortly.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Why Choose Us - The NammaSarathi Difference -->
+    <section class="py-20 bg-secondary-50">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+          <p class="text-primary-600 font-bold text-sm tracking-wider uppercase mb-2" data-i18n="diff_tag">Why Choose Us
+          </p>
+          <h2 class="text-3xl md:text-4xl font-bold text-secondary-900 mb-4" data-i18n="diff_title">The NammaSarathi
+            Difference</h2>
+          <p class="text-secondary-600 text-lg max-w-2xl mx-auto" data-i18n="diff_desc">
+            We bring safety, reliability, and professionalism to every journey — so you can sit back and travel with
+            complete peace of mind.
+          </p>
+        </div>
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <!-- Card 1 -->
+          <div
+            class="bg-white rounded-xl shadow-md p-6 hover-lift border-2 border-transparent hover:border-primary-100">
+            <div class="w-12 h-12 bg-primary-100 rounded-lg flex items-center justify-center text-primary-600 mb-4">
+              <i class="fa-solid fa-shield-halved text-xl"></i>
+            </div>
+            <h3 class="text-lg font-bold text-secondary-900 mb-2" data-i18n="diff_card_1_title">Verified Drivers</h3>
+            <p class="text-secondary-600 text-sm" data-i18n="diff_card_1_desc">Every driver undergoes thorough
+              background verification, license checks, and driving assessments before onboarding.</p>
+          </div>
+          <!-- Card 2 -->
+          <div
+            class="bg-white rounded-xl shadow-md p-6 hover-lift border-2 border-transparent hover:border-primary-100">
+            <div class="w-12 h-12 bg-primary-100 rounded-lg flex items-center justify-center text-primary-600 mb-4">
+              <i class="fa-solid fa-clock text-xl"></i>
+            </div>
+            <h3 class="text-lg font-bold text-secondary-900 mb-2" data-i18n="diff_card_2_title">On-Time Every Time</h3>
+            <p class="text-secondary-600 text-sm" data-i18n="diff_card_2_desc">Punctuality is our promise. Our drivers
+              arrive on schedule so your plans are never disrupted.</p>
+          </div>
+          <!-- Card 3 -->
+          <div
+            class="bg-white rounded-xl shadow-md p-6 hover-lift border-2 border-transparent hover:border-primary-100">
+            <div class="w-12 h-12 bg-primary-100 rounded-lg flex items-center justify-center text-primary-600 mb-4">
+              <i class="fa-solid fa-award text-xl"></i>
+            </div>
+            <h3 class="text-lg font-bold text-secondary-900 mb-2" data-i18n="diff_card_3_title">Experienced
+              Professionals</h3>
+            <p class="text-secondary-600 text-sm" data-i18n="diff_card_3_desc">Our drivers average 5+ years of
+              experience across city, outstation, and corporate travel routes.</p>
+          </div>
+          <!-- Card 4 -->
+          <div
+            class="bg-white rounded-xl shadow-md p-6 hover-lift border-2 border-transparent hover:border-primary-100">
+            <div class="w-12 h-12 bg-primary-100 rounded-lg flex items-center justify-center text-primary-600 mb-4">
+              <i class="fa-solid fa-map-pin text-xl"></i>
+            </div>
+            <h3 class="text-lg font-bold text-secondary-900 mb-2" data-i18n="diff_card_4_title">Door-to-Door Service
+            </h3>
+            <p class="text-secondary-600 text-sm" data-i18n="diff_card_4_desc">Our drivers come directly to your
+              location so you never have to arrange pickup yourself.</p>
+          </div>
+          <!-- Card 5 -->
+          <div
+            class="bg-white rounded-xl shadow-md p-6 hover-lift border-2 border-transparent hover:border-primary-100">
+            <div class="w-12 h-12 bg-primary-100 rounded-lg flex items-center justify-center text-primary-600 mb-4">
+              <i class="fa-solid fa-circle-check text-xl"></i>
+            </div>
+            <h3 class="text-lg font-bold text-secondary-900 mb-2" data-i18n="diff_card_5_title">Instant Confirmation
+            </h3>
+            <p class="text-secondary-600 text-sm" data-i18n="diff_card_5_desc">Receive your driver's full details,
+              contact number, and trip information directly to your email upon assignment.</p>
+          </div>
+          <!-- Card 6 -->
+          <div
+            class="bg-white rounded-xl shadow-md p-6 hover-lift border-2 border-transparent hover:border-primary-100">
+            <div class="w-12 h-12 bg-primary-100 rounded-lg flex items-center justify-center text-primary-600 mb-4">
+              <i class="fa-solid fa-route text-xl"></i>
+            </div>
+            <h3 class="text-lg font-bold text-secondary-900 mb-2" data-i18n="diff_card_6_title">City and Outstation</h3>
+            <p class="text-secondary-600 text-sm" data-i18n="diff_card_6_desc">Whether it is a quick local errand or a
+              long outstation journey, we have drivers ready for every route.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="py-20 bg-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+          <p class="text-primary-600 font-bold text-sm tracking-wider uppercase mb-2" data-i18n="steps_tag">How It Works
+          </p>
+          <h2 class="text-3xl md:text-4xl font-bold text-secondary-900 mb-4" data-i18n="steps_title">Simple Steps to
+            Your Driver</h2>
+          <p class="text-secondary-600 text-lg max-w-2xl mx-auto" data-i18n="steps_desc">
+            From booking to arrival, our process is designed to be fast and hassle-free.
+          </p>
+        </div>
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <!-- Step 1 -->
+          <div class="relative space-y-3">
+            <div class="text-5xl font-extrabold text-primary-100 leading-none">01</div>
+            <div class="w-14 h-14 bg-primary-600 rounded-xl flex items-center justify-center text-white shadow-md">
+              <i class="fa-solid fa-paper-plane text-xl"></i>
+            </div>
+            <h3 class="text-lg font-bold text-secondary-900" data-i18n="step_1_title">Submit Your Booking Request</h3>
+            <p class="text-secondary-600 text-sm" data-i18n="step_1_desc">Fill in the online booking form with your trip
+              details, vehicle type, pickup, and schedule.</p>
+          </div>
+          <!-- Step 2 -->
+          <div class="relative space-y-3">
+            <div class="text-5xl font-extrabold text-primary-100 leading-none">02</div>
+            <div class="w-14 h-14 bg-primary-600 rounded-xl flex items-center justify-center text-white shadow-md">
+              <i class="fa-solid fa-user-check text-xl"></i>
+            </div>
+            <h3 class="text-lg font-bold text-secondary-900" data-i18n="step_2_title">Admin Reviews Your Booking</h3>
+            <p class="text-secondary-600 text-sm" data-i18n="step_2_desc">Our team reviews incoming requests and matches
+              you with the best available driver.</p>
+          </div>
+          <!-- Step 3 -->
+          <div class="relative space-y-3">
+            <div class="text-5xl font-extrabold text-primary-100 leading-none">03</div>
+            <div class="w-14 h-14 bg-primary-600 rounded-xl flex items-center justify-center text-white shadow-md">
+              <i class="fa-solid fa-user-plus text-xl"></i>
+            </div>
+            <h3 class="text-lg font-bold text-secondary-900" data-i18n="step_3_title">Driver is Assigned</h3>
+            <p class="text-secondary-600 text-sm" data-i18n="step_3_desc">A verified driver is assigned based on your
+              vehicle type, schedule, and location.</p>
+          </div>
+          <!-- Step 4 -->
+          <div class="relative space-y-3">
+            <div class="text-5xl font-extrabold text-primary-100 leading-none">04</div>
+            <div class="w-14 h-14 bg-primary-600 rounded-xl flex items-center justify-center text-white shadow-md">
+              <i class="fa-solid fa-envelope text-xl"></i>
+            </div>
+            <h3 class="text-lg font-bold text-secondary-900" data-i18n="step_4_title">Email Confirmation Sent</h3>
+            <p class="text-secondary-600 text-sm" data-i18n="step_4_desc">You receive your driver's name, contact
+              number, and trip details directly to your inbox.</p>
+          </div>
+        </div>
+        <div class="mt-16 text-center">
+          <div class="relative inline-block rounded-2xl overflow-hidden shadow-xl max-w-lg">
+            <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=80&auto=format&fit=crop"
+              alt="Professional driver at wheel" class="w-full object-cover h-[250px]" />
+            <div
+              class="absolute bottom-4 left-1/2 -translate-x-1/2 bg-primary-600 text-white px-6 py-2 rounded-full font-bold text-sm shadow-md"
+              data-i18n="steps_badge">
+              100% Verified Drivers
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="py-20 bg-secondary-50">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+          <p class="text-primary-600 font-bold text-sm tracking-wider uppercase mb-2" data-i18n="home_services_tag">Our
+            Services</p>
+          <h2 class="text-3xl md:text-4xl font-bold text-secondary-900 mb-4" data-i18n="home_services_title">A Driver
+            for Every Need</h2>
+          <p class="text-secondary-600 text-lg max-w-2xl mx-auto" data-i18n="home_services_desc">
+            From everyday city rides to corporate events and outstation travel, we cover it all.
+          </p>
+        </div>
+        <div class="grid md:grid-cols-2 gap-8">
+          <!-- Service Card 1 -->
+          <div class="bg-white rounded-xl shadow-lg overflow-hidden hover-lift flex flex-col justify-between">
+            <div>
+              <div class="relative aspect-video">
+                <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80&auto=format&fit=crop"
+                  alt="Acting Driver" class="w-full h-full object-cover" />
+                <span class="absolute top-4 left-4 bg-primary-600 text-white px-3 py-1 rounded-full text-xs font-bold"
+                  data-i18n="opt_acting">Acting Driver</span>
+              </div>
+              <div class="p-6">
+                <h3 class="text-xl font-bold text-secondary-900 mb-2" data-i18n="opt_acting">Acting Driver Service</h3>
+                <p class="text-secondary-600 text-sm" data-i18n="ser_1_desc">Our signature service — a professional
+                  driver arrives at your doorstep and drives your own vehicle to your destination. No rental car
+                  required, no hassle involved.</p>
+              </div>
+            </div>
+          </div>
+          <!-- Service Card 2 -->
+          <div class="bg-white rounded-xl shadow-lg overflow-hidden hover-lift flex flex-col justify-between">
+            <div>
+              <div class="relative aspect-video">
+                <img src="https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?w=600&q=80&auto=format&fit=crop"
+                  alt="Personal Driver" class="w-full h-full object-cover" />
+                <span class="absolute top-4 left-4 bg-primary-600 text-white px-3 py-1 rounded-full text-xs font-bold"
+                  data-i18n="opt_personal">Personal Driver</span>
+              </div>
+              <div class="p-6">
+                <h3 class="text-xl font-bold text-secondary-900 mb-2" data-i18n="opt_personal">Personal Driver Service
+                </h3>
+                <p class="text-secondary-600 text-sm" data-i18n="ser_2_desc">Hire a dedicated driver for the full day.
+                  Perfect for business executives, shopping trips, or family outings where you need continuous driving
+                  support.</p>
+              </div>
+            </div>
+          </div>
+          <!-- Service Card 3 -->
+          <div class="bg-white rounded-xl shadow-lg overflow-hidden hover-lift flex flex-col justify-between">
+            <div>
+              <div class="relative aspect-video">
+                <img src="https://images.unsplash.com/photo-1499678329028-101435549a4e?w=600&q=80&auto=format&fit=crop"
+                  alt="Outstation Driver" class="w-full h-full object-cover" />
+                <span class="absolute top-4 left-4 bg-primary-600 text-white px-3 py-1 rounded-full text-xs font-bold"
+                  data-i18n="opt_outstation">Outstation Driver</span>
+              </div>
+              <div class="p-6">
+                <h3 class="text-xl font-bold text-secondary-900 mb-2" data-i18n="opt_outstation">Outstation Driver
+                  Service</h3>
+                <p class="text-secondary-600 text-sm" data-i18n="ser_3_desc">Planning a trip outside the city? Our
+                  drivers handle long-distance travel with route knowledge, ensuring a safe and comfortable outstation
+                  journey.</p>
+              </div>
+            </div>
+          </div>
+          <!-- Service Card 4 -->
+          <div class="bg-white rounded-xl shadow-lg overflow-hidden hover-lift flex flex-col justify-between">
+            <div>
+              <div class="relative aspect-video">
+                <img src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=600&q=80&auto=format&fit=crop"
+                  alt="Event Driver" class="w-full h-full object-cover" />
+                <span class="absolute top-4 left-4 bg-primary-600 text-white px-3 py-1 rounded-full text-xs font-bold"
+                  data-i18n="opt_event">Event Driver</span>
+              </div>
+              <div class="p-6">
+                <h3 class="text-xl font-bold text-secondary-900 mb-2" data-i18n="opt_event">Event, Night & Corporate
+                  Driver</h3>
+                <p class="text-secondary-600 text-sm" data-i18n="ser_4_desc">Weddings, corporate meetings, late-night
+                  returns, and special occasions — our drivers maintain the highest standards of professionalism for
+                  every engagement.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="text-center mt-12">
+          <a href="services.html"
+            class="bg-primary-600 hover:bg-primary-700 text-white font-medium py-3 px-8 rounded-lg transition-all duration-200 shadow-md hover:shadow-lg inline-flex items-center gap-2">
+            <span data-i18n="btn_view_all_services">View All Services</span> <i class="fa-solid fa-arrow-right"></i>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="py-20 bg-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+          <p class="text-primary-600 font-bold text-sm tracking-wider uppercase mb-2" data-i18n="testimonials_tag">
+            Testimonials</p>
+          <h2 class="text-3xl md:text-4xl font-bold text-secondary-900" data-i18n="testimonials_title">What Our
+            Customers Say</h2>
+        </div>
+        <div class="grid md:grid-cols-3 gap-8">
+          <!-- Testimonial 1 -->
+          <div class="bg-secondary-50 rounded-xl p-6 relative shadow-sm border border-secondary-100">
+            <div class="flex gap-1 mb-4 text-yellow-400">
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
+            </div>
+            <div class="text-primary-200 text-3xl mb-2"><i class="fa-solid fa-quote-left"></i></div>
+            <p class="text-secondary-700 text-sm italic mb-6">"Booked a driver for my father's hospital visit. The
+              driver arrived 10 minutes early, was extremely polite, and took great care throughout the trip. Highly
+              recommend NammaSarathi."</p>
+            <div class="flex items-center gap-3">
+              <div
+                class="w-10 h-10 bg-primary-600 rounded-full flex items-center justify-center text-white font-bold text-sm">
+                RK</div>
+              <div>
+                <p class="font-bold text-secondary-900 text-sm">Ravi Kumar</p>
+                <p class="text-xs text-secondary-500">Hyderabad</p>
+              </div>
+            </div>
+          </div>
+          <!-- Testimonial 2 -->
+          <div class="bg-secondary-50 rounded-xl p-6 relative shadow-sm border border-secondary-100">
+            <div class="flex gap-1 mb-4 text-yellow-400">
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
+            </div>
+            <div class="text-primary-200 text-3xl mb-2"><i class="fa-solid fa-quote-left"></i></div>
+            <p class="text-secondary-700 text-sm italic mb-6">"Used their corporate driver service for a week of client
+              meetings. Professional, punctual, and presentable every single day. Our clients were impressed. Will
+              definitely continue using this service."</p>
+            <div class="flex items-center gap-3">
+              <div
+                class="w-10 h-10 bg-primary-600 rounded-full flex items-center justify-center text-white font-bold text-sm">
+                PL</div>
+              <div>
+                <p class="font-bold text-secondary-900 text-sm">Priya Lakshmi</p>
+                <p class="text-xs text-secondary-500">Banjara Hills</p>
+              </div>
+            </div>
+          </div>
+          <!-- Testimonial 3 -->
+          <div class="bg-secondary-50 rounded-xl p-6 relative shadow-sm border border-secondary-100">
+            <div class="flex gap-1 mb-4 text-yellow-400">
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
+            </div>
+            <div class="text-primary-200 text-3xl mb-2"><i class="fa-solid fa-quote-left"></i></div>
+            <p class="text-secondary-700 text-sm italic mb-6">"The outstation driver handled our Vizag trip perfectly.
+              Safe driving, knew the routes well, and was courteous throughout the two-day journey. Exceptional service
+              at a fair price."</p>
+            <div class="flex items-center gap-3">
+              <div
+                class="w-10 h-10 bg-primary-600 rounded-full flex items-center justify-center text-white font-bold text-sm">
+                SK</div>
+              <div>
+                <p class="font-bold text-secondary-900 text-sm">Suresh Kumar</p>
+                <p class="text-xs text-secondary-500">Secunderabad</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-20 bg-gradient-to-r from-primary-700 to-primary-800 text-white">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
+        <h2 class="text-3xl md:text-4xl font-bold" data-i18n="cta_title">Ready for a Safe, Professional Drive?</h2>
+        <p class="text-lg text-primary-100 max-w-2xl mx-auto" data-i18n="cta_desc">
+          Book your acting driver today and travel with complete confidence. Available 24 hours, 7 days a week across
+          Hyderabad.
+        </p>
+        <div class="pt-2">
+          <a href="booking.html"
+            class="bg-white text-primary-700 hover:bg-primary-50 font-bold py-3 px-8 rounded-lg transition-all duration-200 shadow-lg hover:shadow-xl inline-block"
+            data-i18n="btn_book_driver">
+            Book a Driver Now
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-secondary-900 text-white pt-16 pb-8 border-t border-secondary-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-12 pb-12 border-b border-secondary-800">
+        <!-- Logo and social links -->
+        <div class="space-y-4">
+          <a href="index.html" class="flex items-center space-x-2">
+            <i class="fa-solid fa-car text-primary-400 text-2xl"></i>
+            <span class="text-xl font-bold text-white">NammaSarathi</span>
+          </a>
+          <p class="text-sm text-secondary-400 leading-relaxed" data-i18n="footer_desc">
+            Hyderabad's trusted acting driver service. Professional, verified drivers available for local, outstation,
+            corporate, and event travel.
+          </p>
+          <div class="flex gap-4 pt-2 text-secondary-400">
+            <a href="#" class="hover:text-primary-400"><i class="fa-brands fa-facebook-f text-lg"></i></a>
+            <a href="#" class="hover:text-primary-400"><i class="fa-brands fa-twitter text-lg"></i></a>
+            <a href="#" class="hover:text-primary-400"><i class="fa-brands fa-instagram text-lg"></i></a>
+            <a href="#" class="hover:text-primary-400"><i class="fa-brands fa-linkedin-in text-lg"></i></a>
+          </div>
+        </div>
+
+        <!-- Quick Links -->
+        <div>
+          <h3 class="text-sm font-bold text-white uppercase tracking-wider mb-4" data-i18n="footer_quick_links">Quick
+            Links</h3>
+          <ul class="space-y-2 text-sm text-secondary-400">
+            <li><a href="index.html" class="hover:text-white" data-i18n="nav_home">Home</a></li>
+            <li><a href="about.html" class="hover:text-white" data-i18n="nav_about">About Us</a></li>
+            <li><a href="services.html" class="hover:text-white" data-i18n="nav_services">Our Services</a></li>
+            <li><a href="booking.html" class="hover:text-white" data-i18n="nav_book_now">Book a Driver</a></li>
+            <li><a href="contact.html" class="hover:text-white" data-i18n="nav_contact">Contact Us</a></li>
+          </ul>
+        </div>
+
+        <!-- Contact Us -->
+        <div>
+          <h3 class="text-sm font-bold text-white uppercase tracking-wider mb-4" data-i18n="footer_contact_us">Contact
+            Us</h3>
+          <ul class="space-y-3 text-sm text-secondary-400">
+            <li class="flex items-center gap-3">
+              <i class="fa-solid fa-phone text-primary-400"></i>
+              <a href="tel:+919876543210" class="hover:text-white settings-phone">+91 98765 43210</a>
+            </li>
+            <li class="flex items-center gap-3">
+              <i class="fa-solid fa-envelope text-primary-400"></i>
+              <a href="mailto:info@nammasarathi.in" class="hover:text-white settings-email">info@nammasarathi.in</a>
+            </li>
+            <li class="flex items-start gap-3">
+              <i class="fa-solid fa-map-pin text-primary-400 mt-1"></i>
+              <span class="settings-address">Hyderabad, Telangana, India - 500001</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-secondary-500 gap-4">
+        <p data-i18n="footer_all_rights">© 2026 NammaSarathi. All rights reserved.</p>
+        <p data-i18n="footer_designed_by">Designed for NammaSarathi Acting Driver Services</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/translations.js"></script>
+  <script src="js/common.js"></script>
+</body>
+
+</html>
