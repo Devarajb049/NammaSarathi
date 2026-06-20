@@ -51,6 +51,8 @@
       }
     </script>
     <link rel="stylesheet" href="css/style.css">
+    <!-- AOS CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
   </head>
   <body class="min-h-screen bg-white flex flex-col antialiased">
 
@@ -112,7 +114,7 @@
     </header>
 
     <!-- Main Content Area -->
-    <main class="flex-1">
+    <main class="flex-1 fade-in">
       
       <!-- Hero Section -->
       <section class="bg-gradient-to-br from-primary-900 via-primary-800 to-primary-700 text-white py-20 text-center">
@@ -130,8 +132,8 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-24">
           
           <!-- Service 1: Acting Driver -->
-          <div class="grid lg:grid-cols-2 gap-12 items-center">
-            <div class="space-y-6">
+          <div class="grid lg:grid-cols-2 gap-12 items-center overflow-hidden">
+            <div class="space-y-6" data-aos="fade-right">
               <div class="space-y-2">
                 <span class="inline-block bg-primary-100 text-primary-700 px-3 py-1 rounded-full text-xs font-bold uppercase" data-i18n="opt_acting">Most Popular</span>
                 <h2 class="text-3xl font-bold text-secondary-900" data-i18n="ser_1_title">Acting Driver Service</h2>
@@ -151,7 +153,7 @@
                 </a>
               </div>
             </div>
-            <div>
+            <div data-aos="fade-left">
               <img
                 src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80&auto=format&fit=crop"
                 alt="Acting Driver"
@@ -161,8 +163,8 @@
           </div>
 
           <!-- Service 2: Personal Driver -->
-          <div class="grid lg:grid-cols-2 gap-12 items-center lg:flex-row-reverse">
-            <div class="lg:order-2 space-y-6">
+          <div class="grid lg:grid-cols-2 gap-12 items-center lg:flex-row-reverse overflow-hidden">
+            <div class="lg:order-2 space-y-6" data-aos="fade-left">
               <div class="space-y-2">
                 <span class="inline-block bg-primary-100 text-primary-700 px-3 py-1 rounded-full text-xs font-bold uppercase" data-i18n="opt_personal">Full Day</span>
                 <h2 class="text-3xl font-bold text-secondary-900" data-i18n="ser_2_title">Personal Driver Service</h2>
@@ -182,7 +184,7 @@
                 </a>
               </div>
             </div>
-            <div class="lg:order-1">
+            <div class="lg:order-1" data-aos="fade-right">
               <img
                 src="https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?w=600&q=80&auto=format&fit=crop"
                 alt="Personal Driver"
@@ -192,8 +194,8 @@
           </div>
 
           <!-- Service 3: Outstation Driver -->
-          <div class="grid lg:grid-cols-2 gap-12 items-center">
-            <div class="space-y-6">
+          <div class="grid lg:grid-cols-2 gap-12 items-center overflow-hidden">
+            <div class="space-y-6" data-aos="fade-right">
               <div class="space-y-2">
                 <span class="inline-block bg-primary-100 text-primary-700 px-3 py-1 rounded-full text-xs font-bold uppercase" data-i18n="opt_outstation">Long Distance</span>
                 <h2 class="text-3xl font-bold text-secondary-900" data-i18n="ser_3_title">Outstation Driver Service</h2>
@@ -213,7 +215,7 @@
                 </a>
               </div>
             </div>
-            <div>
+            <div data-aos="fade-left">
               <img
                 src="https://images.unsplash.com/photo-1499678329028-101435549a4e?w=600&q=80&auto=format&fit=crop"
                 alt="Outstation Driver"
@@ -223,8 +225,8 @@
           </div>
 
           <!-- Service 4: Event & Corporate Driver -->
-          <div class="grid lg:grid-cols-2 gap-12 items-center lg:flex-row-reverse">
-            <div class="lg:order-2 space-y-6">
+          <div class="grid lg:grid-cols-2 gap-12 items-center lg:flex-row-reverse overflow-hidden">
+            <div class="lg:order-2 space-y-6" data-aos="fade-left">
               <div class="space-y-2">
                 <span class="inline-block bg-primary-100 text-primary-700 px-3 py-1 rounded-full text-xs font-bold uppercase" data-i18n="opt_event">Corporate & Events</span>
                 <h2 class="text-3xl font-bold text-secondary-900" data-i18n="ser_4_title">Event, Night & Corporate Driver</h2>
@@ -244,7 +246,7 @@
                 </a>
               </div>
             </div>
-            <div class="lg:order-1">
+            <div class="lg:order-1" data-aos="fade-right">
               <img
                 src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=600&q=80&auto=format&fit=crop"
                 alt="Corporate Driver"
@@ -333,5 +335,15 @@
     <!-- Scripts -->
     <script src="js/translations.js"></script>
     <script src="js/common.js"></script>
+    <!-- AOS Script -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+      AOS.init({
+        duration: 800,
+        easing: 'ease-out-quad',
+        once: true,
+        offset: 100
+      });
+    </script>
   </body>
 </html>

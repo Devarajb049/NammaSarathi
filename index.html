@@ -19,6 +19,8 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Custom Stylesheet -->
   <link rel="stylesheet" href="css/style.css">
+  <!-- AOS CSS -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
   <script>
     tailwind.config = {
       theme: {
@@ -171,7 +173,7 @@
       <div class="absolute inset-0 bg-black/20"></div>
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-28 relative">
         <div class="grid lg:grid-cols-2 gap-12 items-center">
-          <div class="space-y-6">
+          <div class="space-y-6" data-aos="fade-right">
             <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight" data-i18n="hero_title">
               A Driver in Every Journey.
             </h1>
@@ -192,14 +194,14 @@
               </a>
             </div>
           </div>
-          <div class="hidden lg:block">
+          <div class="hidden lg:block" data-aos="fade-left">
             <img src="https://images.unsplash.com/photo-1555215695-3004980ad54e?w=700&q=80&auto=format&fit=crop"
               alt="Professional driver in car" class="rounded-2xl shadow-2xl border-4 border-white/10" />
           </div>
         </div>
 
         <!-- Stats -->
-        <div class="grid grid-cols-3 gap-6 mt-16 pt-8 border-t border-white/10">
+        <div class="grid grid-cols-3 gap-6 mt-16 pt-8 border-t border-white/10" data-aos="fade-up">
           <div class="text-center">
             <p class="text-3xl md:text-4xl font-bold text-white">5,000+</p>
             <p class="text-primary-200 text-sm md:text-base mt-1" data-i18n="stats_trips">Trips Completed</p>
@@ -217,10 +219,10 @@
     </section>
 
     <!-- 24/7 Available + Book Your Driver -->
-    <section class="py-16 bg-white">
+    <section class="py-16 bg-white overflow-hidden">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="grid lg:grid-cols-2 gap-12 items-center">
-          <div class="space-y-6">
+          <div class="space-y-6" data-aos="fade-right">
             <div class="flex items-center gap-3">
               <div class="w-12 h-12 bg-primary-100 rounded-full flex items-center justify-center text-primary-600">
                 <i class="fa-solid fa-phone text-xl"></i>
@@ -265,7 +267,7 @@
               </a>
             </div>
           </div>
-          <div class="space-y-4">
+          <div class="space-y-4" data-aos="fade-left">
             <img src="https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?w=600&q=80&auto=format&fit=crop"
               alt="Driver ready for trip" class="rounded-xl shadow-lg w-full object-cover h-[350px]" />
             <div class="text-center">
@@ -294,7 +296,7 @@
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           <!-- Card 1 -->
           <div
-            class="bg-white rounded-xl shadow-md p-6 hover-lift border-2 border-transparent hover:border-primary-100">
+            class="bg-white rounded-xl shadow-md p-6 hover-lift border-2 border-transparent hover:border-primary-100" data-aos="fade-up" data-aos-delay="0">
             <div class="w-12 h-12 bg-primary-100 rounded-lg flex items-center justify-center text-primary-600 mb-4">
               <i class="fa-solid fa-shield-halved text-xl"></i>
             </div>
@@ -304,7 +306,7 @@
           </div>
           <!-- Card 2 -->
           <div
-            class="bg-white rounded-xl shadow-md p-6 hover-lift border-2 border-transparent hover:border-primary-100">
+            class="bg-white rounded-xl shadow-md p-6 hover-lift border-2 border-transparent hover:border-primary-100" data-aos="fade-up" data-aos-delay="100">
             <div class="w-12 h-12 bg-primary-100 rounded-lg flex items-center justify-center text-primary-600 mb-4">
               <i class="fa-solid fa-clock text-xl"></i>
             </div>
@@ -314,7 +316,7 @@
           </div>
           <!-- Card 3 -->
           <div
-            class="bg-white rounded-xl shadow-md p-6 hover-lift border-2 border-transparent hover:border-primary-100">
+            class="bg-white rounded-xl shadow-md p-6 hover-lift border-2 border-transparent hover:border-primary-100" data-aos="fade-up" data-aos-delay="200">
             <div class="w-12 h-12 bg-primary-100 rounded-lg flex items-center justify-center text-primary-600 mb-4">
               <i class="fa-solid fa-award text-xl"></i>
             </div>
@@ -325,7 +327,7 @@
           </div>
           <!-- Card 4 -->
           <div
-            class="bg-white rounded-xl shadow-md p-6 hover-lift border-2 border-transparent hover:border-primary-100">
+            class="bg-white rounded-xl shadow-md p-6 hover-lift border-2 border-transparent hover:border-primary-100" data-aos="fade-up" data-aos-delay="0">
             <div class="w-12 h-12 bg-primary-100 rounded-lg flex items-center justify-center text-primary-600 mb-4">
               <i class="fa-solid fa-map-pin text-xl"></i>
             </div>
@@ -336,7 +338,7 @@
           </div>
           <!-- Card 5 -->
           <div
-            class="bg-white rounded-xl shadow-md p-6 hover-lift border-2 border-transparent hover:border-primary-100">
+            class="bg-white rounded-xl shadow-md p-6 hover-lift border-2 border-transparent hover:border-primary-100" data-aos="fade-up" data-aos-delay="100">
             <div class="w-12 h-12 bg-primary-100 rounded-lg flex items-center justify-center text-primary-600 mb-4">
               <i class="fa-solid fa-circle-check text-xl"></i>
             </div>
@@ -347,7 +349,7 @@
           </div>
           <!-- Card 6 -->
           <div
-            class="bg-white rounded-xl shadow-md p-6 hover-lift border-2 border-transparent hover:border-primary-100">
+            class="bg-white rounded-xl shadow-md p-6 hover-lift border-2 border-transparent hover:border-primary-100" data-aos="fade-up" data-aos-delay="200">
             <div class="w-12 h-12 bg-primary-100 rounded-lg flex items-center justify-center text-primary-600 mb-4">
               <i class="fa-solid fa-route text-xl"></i>
             </div>
@@ -373,7 +375,7 @@
         </div>
         <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
           <!-- Step 1 -->
-          <div class="relative space-y-3">
+          <div class="relative space-y-3" data-aos="fade-up" data-aos-delay="0">
             <div class="text-5xl font-extrabold text-primary-100 leading-none">01</div>
             <div class="w-14 h-14 bg-primary-600 rounded-xl flex items-center justify-center text-white shadow-md">
               <i class="fa-solid fa-paper-plane text-xl"></i>
@@ -383,7 +385,7 @@
               details, vehicle type, pickup, and schedule.</p>
           </div>
           <!-- Step 2 -->
-          <div class="relative space-y-3">
+          <div class="relative space-y-3" data-aos="fade-up" data-aos-delay="100">
             <div class="text-5xl font-extrabold text-primary-100 leading-none">02</div>
             <div class="w-14 h-14 bg-primary-600 rounded-xl flex items-center justify-center text-white shadow-md">
               <i class="fa-solid fa-user-check text-xl"></i>
@@ -393,7 +395,7 @@
               you with the best available driver.</p>
           </div>
           <!-- Step 3 -->
-          <div class="relative space-y-3">
+          <div class="relative space-y-3" data-aos="fade-up" data-aos-delay="200">
             <div class="text-5xl font-extrabold text-primary-100 leading-none">03</div>
             <div class="w-14 h-14 bg-primary-600 rounded-xl flex items-center justify-center text-white shadow-md">
               <i class="fa-solid fa-user-plus text-xl"></i>
@@ -403,7 +405,7 @@
               vehicle type, schedule, and location.</p>
           </div>
           <!-- Step 4 -->
-          <div class="relative space-y-3">
+          <div class="relative space-y-3" data-aos="fade-up" data-aos-delay="300">
             <div class="text-5xl font-extrabold text-primary-100 leading-none">04</div>
             <div class="w-14 h-14 bg-primary-600 rounded-xl flex items-center justify-center text-white shadow-md">
               <i class="fa-solid fa-envelope text-xl"></i>
@@ -441,7 +443,7 @@
         </div>
         <div class="grid md:grid-cols-2 gap-8">
           <!-- Service Card 1 -->
-          <div class="bg-white rounded-xl shadow-lg overflow-hidden hover-lift flex flex-col justify-between">
+          <div class="bg-white rounded-xl shadow-lg overflow-hidden hover-lift flex flex-col justify-between" data-aos="fade-up" data-aos-delay="0">
             <div>
               <div class="relative aspect-video">
                 <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80&auto=format&fit=crop"
@@ -458,7 +460,7 @@
             </div>
           </div>
           <!-- Service Card 2 -->
-          <div class="bg-white rounded-xl shadow-lg overflow-hidden hover-lift flex flex-col justify-between">
+          <div class="bg-white rounded-xl shadow-lg overflow-hidden hover-lift flex flex-col justify-between" data-aos="fade-up" data-aos-delay="100">
             <div>
               <div class="relative aspect-video">
                 <img src="https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?w=600&q=80&auto=format&fit=crop"
@@ -476,7 +478,7 @@
             </div>
           </div>
           <!-- Service Card 3 -->
-          <div class="bg-white rounded-xl shadow-lg overflow-hidden hover-lift flex flex-col justify-between">
+          <div class="bg-white rounded-xl shadow-lg overflow-hidden hover-lift flex flex-col justify-between" data-aos="fade-up" data-aos-delay="0">
             <div>
               <div class="relative aspect-video">
                 <img src="https://images.unsplash.com/photo-1499678329028-101435549a4e?w=600&q=80&auto=format&fit=crop"
@@ -494,7 +496,7 @@
             </div>
           </div>
           <!-- Service Card 4 -->
-          <div class="bg-white rounded-xl shadow-lg overflow-hidden hover-lift flex flex-col justify-between">
+          <div class="bg-white rounded-xl shadow-lg overflow-hidden hover-lift flex flex-col justify-between" data-aos="fade-up" data-aos-delay="100">
             <div>
               <div class="relative aspect-video">
                 <img src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=600&q=80&auto=format&fit=crop"
@@ -532,7 +534,7 @@
         </div>
         <div class="grid md:grid-cols-3 gap-8">
           <!-- Testimonial 1 -->
-          <div class="bg-secondary-50 rounded-xl p-6 relative shadow-sm border border-secondary-100">
+          <div class="bg-secondary-50 rounded-xl p-6 relative shadow-sm border border-secondary-100" data-aos="fade-up" data-aos-delay="0">
             <div class="flex gap-1 mb-4 text-yellow-400">
               <i class="fa-solid fa-star"></i>
               <i class="fa-solid fa-star"></i>
@@ -555,7 +557,7 @@
             </div>
           </div>
           <!-- Testimonial 2 -->
-          <div class="bg-secondary-50 rounded-xl p-6 relative shadow-sm border border-secondary-100">
+          <div class="bg-secondary-50 rounded-xl p-6 relative shadow-sm border border-secondary-100" data-aos="fade-up" data-aos-delay="100">
             <div class="flex gap-1 mb-4 text-yellow-400">
               <i class="fa-solid fa-star"></i>
               <i class="fa-solid fa-star"></i>
@@ -578,7 +580,7 @@
             </div>
           </div>
           <!-- Testimonial 3 -->
-          <div class="bg-secondary-50 rounded-xl p-6 relative shadow-sm border border-secondary-100">
+          <div class="bg-secondary-50 rounded-xl p-6 relative shadow-sm border border-secondary-100" data-aos="fade-up" data-aos-delay="200">
             <div class="flex gap-1 mb-4 text-yellow-400">
               <i class="fa-solid fa-star"></i>
               <i class="fa-solid fa-star"></i>
@@ -690,6 +692,16 @@
   <!-- Scripts -->
   <script src="js/translations.js"></script>
   <script src="js/common.js"></script>
+  <!-- AOS Script -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init({
+      duration: 800,
+      easing: 'ease-out-quad',
+      once: true,
+      offset: 100
+    });
+  </script>
 </body>
 
 </html>

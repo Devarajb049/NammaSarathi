@@ -51,6 +51,8 @@
       }
     </script>
     <link rel="stylesheet" href="css/style.css">
+    <!-- AOS CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
   </head>
   <body class="min-h-screen bg-secondary-50 flex flex-col antialiased">
 
@@ -112,7 +114,7 @@
     </header>
 
     <!-- Main Content Area -->
-    <main class="flex-1 py-12">
+    <main class="flex-1 py-12 fade-in">
       <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         
         <!-- Hero Title Header -->
@@ -122,7 +124,7 @@
         </div>
 
         <!-- Booking request container -->
-        <div id="booking-container">
+        <div id="booking-container" data-aos="fade-up">
           <form id="booking-form" class="bg-white rounded-2xl shadow-xl p-6 md:p-8 border border-secondary-200/50 space-y-8">
             
             <!-- 1. Contact Information -->
@@ -337,6 +339,16 @@
     <!-- Scripts -->
     <script src="js/translations.js"></script>
     <script src="js/common.js"></script>
+    <!-- AOS Script -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+      AOS.init({
+        duration: 800,
+        easing: 'ease-out-quad',
+        once: true,
+        offset: 100
+      });
+    </script>
 
     <!-- Booking Validation & Submit Logic Script -->
     <script>

@@ -51,6 +51,8 @@
       }
     </script>
     <link rel="stylesheet" href="css/style.css">
+    <!-- AOS CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
   </head>
   <body class="min-h-screen bg-secondary-50 flex flex-col antialiased">
 
@@ -112,7 +114,7 @@
     </header>
 
     <!-- Main Content Area -->
-    <main class="flex-1 py-12">
+    <main class="flex-1 py-12 fade-in">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         <!-- Hero Header -->
@@ -127,7 +129,7 @@
         <div class="grid lg:grid-cols-12 gap-8 items-start">
           
           <!-- Left Column: Reach Us Directly Info -->
-          <div class="lg:col-span-5 space-y-6">
+          <div class="lg:col-span-5 space-y-6" data-aos="fade-right">
             <div class="bg-white rounded-2xl shadow-lg border border-secondary-200/50 p-6 md:p-8 space-y-6">
               <h2 class="text-lg font-bold text-secondary-900" data-i18n="contact_reach_directly">Reach Us Directly</h2>
               
@@ -194,7 +196,7 @@
           </div>
 
           <!-- Right Column: Send Us a Message Contact Form -->
-          <div class="lg:col-span-7" id="contact-container">
+          <div class="lg:col-span-7" id="contact-container" data-aos="fade-left">
             <form id="contact-form" class="bg-white rounded-2xl shadow-lg border border-secondary-200/50 p-6 md:p-8 space-y-6">
               <div>
                 <h2 class="text-lg font-bold text-secondary-900" data-i18n="contact_send_message">Send Us a Message</h2>
@@ -332,6 +334,16 @@
     <!-- Scripts -->
     <script src="js/translations.js"></script>
     <script src="js/common.js"></script>
+    <!-- AOS Script -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+      AOS.init({
+        duration: 800,
+        easing: 'ease-out-quad',
+        once: true,
+        offset: 100
+      });
+    </script>
 
     <!-- Message submit logic script -->
     <script>

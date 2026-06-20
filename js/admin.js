@@ -53,10 +53,10 @@ document.addEventListener('DOMContentLoaded', () => {
       const isClosed = sidebarContainer.classList.contains('-translate-x-full');
       if (isClosed) {
         sidebarContainer.classList.remove('-translate-x-full');
-        sidebarOverlay.classList.remove('hidden');
+        if (sidebarOverlay) sidebarOverlay.classList.add('active');
       } else {
         sidebarContainer.classList.add('-translate-x-full');
-        sidebarOverlay.classList.add('hidden');
+        if (sidebarOverlay) sidebarOverlay.classList.remove('active');
       }
     });
   }
@@ -64,7 +64,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (sidebarOverlay && sidebarContainer) {
     sidebarOverlay.addEventListener('click', () => {
       sidebarContainer.classList.add('-translate-x-full');
-      sidebarOverlay.classList.add('hidden');
+      sidebarOverlay.classList.remove('active');
     });
   }
 
