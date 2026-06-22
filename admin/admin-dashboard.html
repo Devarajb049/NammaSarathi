@@ -3,12 +3,12 @@
 
 <head>
   <meta charset="UTF-8" />
-  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Manage Bookings - NammaSarathi</title>
+  <title>Admin Dashboard - NammaSarathi</title>
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorig in>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
     rel="stylesheet">
   <!-- Font Awesome Icons -->
@@ -16,7 +16,7 @@
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Custom stylesheet -->
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="../css/style.css">
   <script>
     tailwind.config = {
       theme: {
@@ -54,14 +54,17 @@
       }
     }
   </script>
+  <style>
+    html,
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+    }
+  </style>
 </head>
 
 <body class="min-h-screen bg-secondary-50 text-secondary-900 flex antialiased">
 
-  <!-- Auth Validation and Sidebar utilities -->
-  <script src="js/admin.js"></script>
-
-  <!-- Mobile header menu (visible only on mobile) -->
+  <!-- Mobile menu top panel (visible only on mobile) -->
   <div class="fixed top-0 inset-x-0 bg-white shadow-sm h-14 flex items-center px-4 z-30 md:hidden justify-between">
     <button id="sidebar-toggle" class="p-2 bg-secondary-100 rounded-lg text-secondary-700 hover:bg-secondary-200">
       <i class="fa-solid fa-bars text-lg"></i>
@@ -70,7 +73,7 @@
       <i class="fa-solid fa-car text-primary-600 text-xl"></i>
       <span class="font-bold text-secondary-900 text-sm">NammaSarathi</span>
     </div>
-    <div class="w-8"></div>
+    <div class="w-8"></div> <!-- Spacer -->
   </div>
 
   <!-- Sidebar overlay -->
@@ -80,26 +83,28 @@
   <aside id="admin-sidebar"
     class="fixed md:static inset-y-0 left-0 z-40 w-64 bg-secondary-900 flex flex-col justify-between transform -translate-x-full md:translate-x-0 transition-transform duration-300 ease-in-out">
     <div class="flex flex-col h-full">
+      <!-- Sidebar Branding -->
       <div class="p-6 border-b border-secondary-800">
-        <a href="index.html" class="flex items-center space-x-2">
+        <a href="../index.html" class="flex items-center space-x-2">
           <i class="fa-solid fa-car text-primary-400 text-2xl"></i>
           <span class="text-xl font-bold text-white">NammaSarathi</span>
         </a>
         <span class="text-xs text-secondary-400 mt-1 block">Admin Panel</span>
       </div>
 
+      <!-- Sidebar Navigation -->
       <nav class="flex-1 p-4">
         <ul class="space-y-2">
           <li>
             <a href="admin-dashboard.html"
-              class="flex items-center gap-3 px-4 py-3 rounded-lg text-secondary-300 hover:bg-secondary-800 hover:text-white transition-colors">
+              class="flex items-center gap-3 px-4 py-3 rounded-lg text-white bg-primary-600 transition-colors">
               <i class="fa-solid fa-chart-line w-5"></i>
               <span>Dashboard</span>
             </a>
           </li>
           <li>
             <a href="admin-bookings.html"
-              class="flex items-center gap-3 px-4 py-3 rounded-lg text-white bg-primary-600 transition-colors">
+              class="flex items-center gap-3 px-4 py-3 rounded-lg text-secondary-300 hover:bg-secondary-800 hover:text-white transition-colors">
               <i class="fa-solid fa-calendar w-5"></i>
               <span>Bookings</span>
             </a>
@@ -128,6 +133,7 @@
         </ul>
       </nav>
 
+      <!-- Sidebar Footer -->
       <div class="p-4 border-t border-secondary-800">
         <div class="px-4 py-2 mb-3">
           <p class="text-white text-sm font-medium">admin@gmail.com</p>
@@ -144,59 +150,153 @@
 
   <!-- Main Workspace -->
   <main class="flex-1 p-6 md:p-10 pt-20 md:pt-10 overflow-y-auto min-h-screen fade-in">
-    <!-- Header -->
-    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
-      <div>
-        <h1 class="text-2xl font-bold text-secondary-900 font-semibold">Trips & Bookings</h1>
-        <p class="text-secondary-600 text-sm">Review incoming request bookings, update trip states, and assign acting
-          drivers.</p>
+    <!-- Page Header -->
+    <div class="mb-8">
+      <h1 class="text-2xl font-bold text-secondary-900">Dashboard</h1>
+      <p class="text-secondary-600 text-sm">Welcome back, admin@gmail.com</p>
+    </div>
+
+    <!-- Live Summary Indicators -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+      <!-- Total Bookings -->
+      <div class="bg-white rounded-xl shadow-sm p-6 border border-secondary-200/50 flex items-center justify-between">
+        <div>
+          <p class="text-sm text-secondary-500 font-semibold">Total Bookings</p>
+          <p id="stat-total" class="text-3xl font-bold text-secondary-900 mt-1">0</p>
+        </div>
+        <div class="w-12 h-12 bg-primary-500 rounded-xl flex items-center justify-center text-white">
+          <i class="fa-solid fa-calendar text-xl"></i>
+        </div>
+      </div>
+
+      <!-- Pending Bookings -->
+      <div class="bg-white rounded-xl shadow-sm p-6 border border-secondary-200/50 flex items-center justify-between">
+        <div>
+          <p class="text-sm text-secondary-500 font-semibold">Pending</p>
+          <p id="stat-pending" class="text-3xl font-bold text-secondary-900 mt-1">0</p>
+        </div>
+        <div class="w-12 h-12 bg-yellow-500 rounded-xl flex items-center justify-center text-white">
+          <i class="fa-solid fa-clock text-xl"></i>
+        </div>
+      </div>
+
+      <!-- Confirmed Bookings -->
+      <div class="bg-white rounded-xl shadow-sm p-6 border border-secondary-200/50 flex items-center justify-between">
+        <div>
+          <p class="text-sm text-secondary-500 font-semibold">Confirmed</p>
+          <p id="stat-confirmed" class="text-3xl font-bold text-secondary-900 mt-1">0</p>
+        </div>
+        <div class="w-12 h-12 bg-green-500 rounded-xl flex items-center justify-center text-white">
+          <i class="fa-solid fa-circle-check text-xl"></i>
+        </div>
+      </div>
+
+      <!-- Active Drivers -->
+      <div class="bg-white rounded-xl shadow-sm p-6 border border-secondary-200/50 flex items-center justify-between">
+        <div>
+          <p class="text-sm text-secondary-500 font-semibold">Active Drivers</p>
+          <p id="stat-drivers" class="text-3xl font-bold text-secondary-900 mt-1">12</p>
+        </div>
+        <div class="w-12 h-12 bg-secondary-800 rounded-xl flex items-center justify-center text-white">
+          <i class="fa-solid fa-user-shield text-xl"></i>
+        </div>
       </div>
     </div>
 
-    <!-- Bookings Dashboard Grid -->
-    <div class="bg-white rounded-xl shadow-sm border border-secondary-200/50 overflow-hidden">
-      <!-- Control Bar -->
-      <div class="p-6 border-b border-secondary-200 flex flex-col lg:flex-row lg:items-center justify-between gap-4">
-        <!-- Search Bar -->
-        <div class="relative w-full lg:max-w-xs">
-          <i
-            class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-secondary-400 text-sm"></i>
-          <input type="text" id="search-input" placeholder="Search by customer name or ID..."
-            class="w-full pl-9 pr-4 py-2 border border-secondary-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary-500" />
+    <!-- Overviews and Attention Grid -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+      <!-- Overview -->
+      <div
+        class="bg-gradient-to-br from-primary-600 to-primary-700 text-white rounded-xl shadow-sm p-6 flex flex-col justify-between">
+        <div class="flex items-center gap-3 mb-4">
+          <i class="fa-solid fa-arrow-trend-up text-xl"></i>
+          <span class="font-bold text-lg">Today's Overview</span>
         </div>
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <p class="text-primary-100 text-xs font-semibold">New Bookings</p>
+            <p class="text-3xl font-bold mt-1">3</p>
+          </div>
+          <div>
+            <p class="text-primary-100 text-xs font-semibold">Trips Completed</p>
+            <p class="text-3xl font-bold mt-1">8</p>
+          </div>
+        </div>
+        <div class="mt-6 text-xs text-primary-100">
+          Performance updated live
+        </div>
+      </div>
 
-        <!-- Filters -->
-        <div class="flex flex-wrap items-center gap-2 text-xs font-semibold">
-          <button onclick="changeFilter('all')" id="filter-all"
+      <!-- Driver States -->
+      <div class="bg-white rounded-xl shadow-sm p-6 border border-secondary-200/50">
+        <div class="flex items-center gap-3 mb-4 text-secondary-800">
+          <i class="fa-solid fa-car text-lg"></i>
+          <span class="font-bold text-lg">Available Drivers</span>
+        </div>
+        <div id="drivers-status-list" class="space-y-3">
+          <!-- Dynamic entries loaded in JS -->
+        </div>
+      </div>
+
+      <!-- Alerts -->
+      <div class="bg-white rounded-xl shadow-sm p-6 border border-secondary-200/50">
+        <div class="flex items-center gap-3 mb-4 text-yellow-500">
+          <i class="fa-solid fa-circle-exclamation text-lg"></i>
+          <span class="font-bold text-lg text-secondary-800">Needs Attention</span>
+        </div>
+        <div class="space-y-3 text-sm">
+          <div class="flex items-center gap-3 text-secondary-600">
+            <span class="w-2.5 h-2.5 bg-yellow-500 rounded-full flex-shrink-0 animate-ping"></span>
+            <span id="attention-pending">2 pending bookings</span>
+          </div>
+          <div class="flex items-center gap-3 text-secondary-600">
+            <span class="w-2.5 h-2.5 bg-red-500 rounded-full flex-shrink-0"></span>
+            <span>1 driver needs verification</span>
+          </div>
+          <div class="flex items-center gap-3 text-secondary-600">
+            <span class="w-2.5 h-2.5 bg-primary-500 rounded-full flex-shrink-0"></span>
+            <span>3 upcoming trips today</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Recent Bookings Workspace -->
+    <div class="bg-white rounded-xl shadow-sm border border-secondary-200/50 overflow-hidden">
+      <!-- Table Control Panel -->
+      <div class="p-6 border-b border-secondary-200 flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <h2 class="text-lg font-bold text-secondary-900">Recent Bookings</h2>
+        <!-- Filter links -->
+        <div class="flex flex-wrap gap-2 text-xs font-semibold">
+          <button onclick="filterTable('all')" id="filter-all"
             class="px-3.5 py-1.5 rounded-lg bg-primary-600 text-white transition-all">All</button>
-          <button onclick="changeFilter('pending')" id="filter-pending"
+          <button onclick="filterTable('pending')" id="filter-pending"
             class="px-3.5 py-1.5 rounded-lg bg-secondary-100 text-secondary-600 hover:bg-secondary-200 transition-all">Pending</button>
-          <button onclick="changeFilter('confirmed')" id="filter-confirmed"
+          <button onclick="filterTable('confirmed')" id="filter-confirmed"
             class="px-3.5 py-1.5 rounded-lg bg-secondary-100 text-secondary-600 hover:bg-secondary-200 transition-all">Confirmed</button>
-          <button onclick="changeFilter('completed')" id="filter-completed"
+          <button onclick="filterTable('completed')" id="filter-completed"
             class="px-3.5 py-1.5 rounded-lg bg-secondary-100 text-secondary-600 hover:bg-secondary-200 transition-all">Completed</button>
-          <button onclick="changeFilter('cancelled')" id="filter-cancelled"
+          <button onclick="filterTable('cancelled')" id="filter-cancelled"
             class="px-3.5 py-1.5 rounded-lg bg-secondary-100 text-secondary-600 hover:bg-secondary-200 transition-all">Cancelled</button>
         </div>
       </div>
 
       <!-- Table UI -->
       <div class="overflow-x-auto">
-        <table class="w-full text-left min-w-[950px]">
+        <table class="w-full text-left min-w-[800px]">
           <thead
-            class="bg-secondary-50 text-secondary-600 text-xs font-bold uppercase border-b border-secondary-200 tracking-wider">
+            class="bg-secondary-50 text-secondary-600 text-xs font-bold uppercase tracking-wider border-b border-secondary-200">
             <tr>
               <th class="px-6 py-4">Booking ID</th>
               <th class="px-6 py-4">Customer</th>
               <th class="px-6 py-4">Service</th>
               <th class="px-6 py-4">Pickup</th>
-              <th class="px-6 py-4">Driver</th>
               <th class="px-6 py-4">Status</th>
               <th class="px-6 py-4 text-right">Actions</th>
             </tr>
           </thead>
           <tbody id="bookings-table-body" class="divide-y divide-secondary-200 text-sm">
-            <!-- Rendered via JS -->
+            <!-- Loaded dynamically via JS -->
           </tbody>
         </table>
       </div>
@@ -211,7 +311,7 @@
       <!-- Header -->
       <div class="p-6 border-b border-secondary-200 flex justify-between items-center bg-secondary-50 rounded-t-2xl">
         <div>
-          <h3 class="text-lg font-bold text-secondary-900">Booking Details & Management</h3>
+          <h3 class="text-lg font-bold text-secondary-900">Booking Details</h3>
           <p id="modal-booking-id" class="text-xs text-secondary-500 font-semibold mt-0.5">BK000</p>
         </div>
         <button onclick="closeModal()"
@@ -225,8 +325,7 @@
         <div class="grid md:grid-cols-2 gap-6">
           <!-- Customer info -->
           <div class="space-y-3">
-            <h4 class="font-bold text-secondary-900 border-b border-secondary-100 pb-2 text-sm">Customer Information
-            </h4>
+            <h4 class="font-bold text-secondary-900 border-b border-secondary-100 pb-2">Customer Information</h4>
             <p class="text-secondary-600 text-sm">
               <strong class="text-secondary-800">Name:</strong> <span id="modal-cust-name">-</span>
             </p>
@@ -240,7 +339,7 @@
 
           <!-- Service Details -->
           <div class="space-y-3">
-            <h4 class="font-bold text-secondary-900 border-b border-secondary-100 pb-2 text-sm">Trip Details</h4>
+            <h4 class="font-bold text-secondary-900 border-b border-secondary-100 pb-2">Trip Details</h4>
             <p class="text-secondary-600 text-sm">
               <strong class="text-secondary-800">Service:</strong> <span id="modal-trip-service">-</span>
             </p>
@@ -253,9 +352,9 @@
           </div>
         </div>
 
-        <!-- Schedule & Location -->
+        <!-- Schedule & Location details -->
         <div class="space-y-3">
-          <h4 class="font-bold text-secondary-900 border-b border-secondary-100 pb-2 text-sm">Schedule & Location</h4>
+          <h4 class="font-bold text-secondary-900 border-b border-secondary-100 pb-2">Schedule & Location</h4>
           <div class="grid md:grid-cols-2 gap-4">
             <div class="bg-secondary-50 border border-secondary-100 rounded-xl p-4 space-y-1">
               <p class="text-xs text-secondary-500 font-bold uppercase tracking-wider">Pickup</p>
@@ -276,46 +375,23 @@
 
         <!-- Additional Notes -->
         <div class="space-y-2">
-          <h4 class="font-bold text-secondary-900 border-b border-secondary-100 pb-2 text-sm">Additional Notes</h4>
+          <h4 class="font-bold text-secondary-900 border-b border-secondary-100 pb-2">Additional Notes</h4>
           <p id="modal-notes"
             class="text-secondary-600 text-sm italic bg-secondary-50 p-4 rounded-xl border border-secondary-100 whitespace-pre-line">
             -</p>
         </div>
 
-        <!-- Status Adjuster & Driver Assign -->
-        <div class="bg-secondary-50 border border-secondary-200 rounded-xl p-4 space-y-4">
-          <h4 class="font-bold text-secondary-800 text-sm">Trip Management Options</h4>
-          <div class="grid sm:grid-cols-2 gap-4">
-            <!-- Driver -->
-            <div class="space-y-1.5">
-              <label for="assign-driver-select" class="text-xs font-semibold text-secondary-600">Assign Acting
-                Driver</label>
-              <select id="assign-driver-select"
-                class="w-full px-3 py-2 border border-secondary-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary-500">
-                <!-- Options loaded dynamically -->
-              </select>
-            </div>
-            <!-- Status -->
-            <div class="space-y-1.5">
-              <label for="update-status-select" class="text-xs font-semibold text-secondary-600">Update Booking
-                Status</label>
-              <select id="update-status-select"
-                class="w-full px-3 py-2 border border-secondary-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary-500">
-                <option value="pending">Pending Review</option>
-                <option value="confirmed">Confirmed</option>
-                <option value="completed">Completed</option>
-                <option value="cancelled">Cancelled</option>
-              </select>
-            </div>
-          </div>
-          <div class="pt-2 flex justify-end gap-3 border-t border-secondary-200/50">
-            <button onclick="closeModal()"
-              class="px-4 py-2 border border-secondary-300 text-secondary-700 hover:bg-secondary-100 rounded-lg text-sm font-semibold transition-colors">
-              Cancel
-            </button>
-            <button onclick="saveTripChanges()"
-              class="bg-primary-600 hover:bg-primary-700 text-white font-semibold py-2 px-5 rounded-lg text-sm shadow-md transition-colors">
-              Apply Modifications
+        <!-- Assign Driver Form -->
+        <div class="bg-primary-50 border border-primary-200 rounded-xl p-4 space-y-3">
+          <h4 class="font-bold text-primary-900 text-sm">Assign Driver & Update Booking</h4>
+          <div class="flex flex-col sm:flex-row gap-3">
+            <select id="assign-driver-select"
+              class="flex-1 px-3 py-2 border border-primary-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary-500">
+              <!-- Loaded dynamically -->
+            </select>
+            <button onclick="confirmAssignment()"
+              class="bg-primary-600 hover:bg-primary-700 text-white font-semibold py-2 px-4 rounded-lg text-sm shadow-md transition-colors flex items-center justify-center gap-1.5">
+              <i class="fa-solid fa-check"></i> Save Assignment
             </button>
           </div>
         </div>
@@ -323,37 +399,85 @@
     </div>
   </div>
 
-  <!-- Logic Script -->
+  <script src="../js/admin.js"></script>
+  <!-- Dashboard Logic Script -->
   <script>
     let currentFilter = 'all';
     let selectedBookingId = null;
-    let searchQuery = '';
 
-    function loadBookingsTable() {
+    function renderDashboard() {
       const bookings = getBookings();
+      const drivers = getDrivers();
+
+      // 1. Stats Counter
+      document.getElementById('stat-total').textContent = bookings.length;
+      document.getElementById('stat-pending').textContent = bookings.filter(b => b.status === 'pending').length;
+      document.getElementById('stat-confirmed').textContent = bookings.filter(b => b.status === 'confirmed').length;
+
+      // Count of active drivers on trip
+      const onTripCount = drivers.filter(d => d.status === 'On Trip').length;
+      document.getElementById('stat-drivers').textContent = drivers.length + ` (${onTripCount} on trip)`;
+
+      // Update Needs Attention Alerts
+      const pendingCount = bookings.filter(b => b.status === 'pending').length;
+      document.getElementById('attention-pending').textContent = `${pendingCount} pending booking${pendingCount === 1 ? '' : 's'}`;
+
+      // 2. Driver Availability Panel
+      const driversListContainer = document.getElementById('drivers-status-list');
+      driversListContainer.innerHTML = '';
+      drivers.slice(0, 3).forEach(driver => {
+        const row = document.createElement('div');
+        row.className = 'flex justify-between items-center text-sm border-b border-secondary-100 pb-2 last:border-b-0 last:pb-0';
+
+        let statusColor = 'text-green-600';
+        if (driver.status === 'On Trip') statusColor = 'text-yellow-600';
+        if (driver.status === 'Inactive') statusColor = 'text-red-500';
+
+        row.innerHTML = `
+            <span class="text-secondary-700 font-medium">${driver.name}</span>
+            <span class="${statusColor} font-bold text-xs uppercase tracking-wide">${driver.status}</span>
+          `;
+        driversListContainer.appendChild(row);
+      });
+
+      // 3. Render Bookings Table
+      renderTable(bookings);
+    }
+
+    function getServiceLabel(type) {
+      const labels = {
+        acting: 'Acting Driver',
+        personal: 'Personal Driver',
+        outstation: 'Outstation',
+        event: 'Event/Corporate'
+      };
+      return labels[type] || type;
+    }
+
+    function getStatusClass(status) {
+      switch (status) {
+        case 'pending': return 'bg-yellow-100 text-yellow-800 border-yellow-200';
+        case 'confirmed': return 'bg-green-100 text-green-800 border-green-200';
+        case 'completed': return 'bg-blue-100 text-blue-800 border-blue-200';
+        case 'cancelled': return 'bg-red-100 text-red-800 border-red-200';
+        default: return 'bg-secondary-100 text-secondary-800 border-secondary-200';
+      }
+    }
+
+    function renderTable(bookingsList) {
       const tbody = document.getElementById('bookings-table-body');
       tbody.innerHTML = '';
 
-      // Search & Filter
-      let filtered = bookings;
-      if (currentFilter !== 'all') {
-        filtered = filtered.filter(b => b.status === currentFilter);
-      }
-      if (searchQuery) {
-        const query = searchQuery.toLowerCase();
-        filtered = filtered.filter(b =>
-          b.id.toLowerCase().includes(query) ||
-          b.name.toLowerCase().includes(query) ||
-          b.phone.includes(query)
-        );
-      }
+      const filtered = currentFilter === 'all'
+        ? bookingsList
+        : bookingsList.filter(b => b.status === currentFilter);
 
       if (filtered.length === 0) {
         tbody.innerHTML = `
             <tr>
-              <td colspan="7" class="px-6 py-12 text-center text-secondary-400">
+              <td colspan="6" class="px-6 py-10 text-center text-secondary-400">
                 <i class="fa-solid fa-folder-open text-3xl mb-2 block"></i>
-                No bookings matches found.
+                No bookings found.
               </td>
             </tr>
           `;
@@ -377,9 +501,6 @@
               <div class="text-secondary-900 font-semibold">${booking.pickupDate}</div>
               <div class="text-xs text-secondary-500">${booking.pickupTime}</div>
             </td>
-            <td class="px-6 py-4 whitespace-nowrap text-secondary-600 font-medium">
-              ${booking.driver ? `<i class="fa-solid fa-user text-xs mr-1 text-primary-500"></i> ${booking.driver}` : '<span class="text-secondary-400 text-xs italic">Unassigned</span>'}
-            </td>
             <td class="px-6 py-4 whitespace-nowrap">
               <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold border ${getStatusClass(booking.status)}">
                 ${booking.status.charAt(0).toUpperCase() + booking.status.slice(1)}
@@ -387,7 +508,7 @@
             </td>
             <td class="px-6 py-4 whitespace-nowrap text-right text-sm">
               <div class="flex justify-end gap-2">
-                <button onclick="openModal('${booking.id}')" class="p-2 text-secondary-500 hover:text-primary-600 hover:bg-primary-50 rounded-lg transition-all" title="Manage Details">
+                <button onclick="openModal('${booking.id}')" class="p-2 text-secondary-500 hover:text-primary-600 hover:bg-primary-50 rounded-lg transition-all" title="View Details">
                   <i class="fa-solid fa-eye text-sm"></i>
                 </button>
                 <button onclick="deleteBooking('${booking.id}')" class="p-2 text-secondary-500 hover:text-red-600 hover:bg-red-50 rounded-lg transition-all" title="Delete">
@@ -400,36 +521,21 @@
       });
     }
 
-    function getServiceLabel(type) {
-      const labels = {
-        acting: 'Acting Driver',
-        personal: 'Personal Driver',
-        outstation: 'Outstation',
-        event: 'Event/Corporate'
-      };
-      return labels[type] || type;
-    }
-
-    function getStatusClass(status) {
-      switch (status) {
-        case 'pending': return 'bg-yellow-100 text-yellow-800 border-yellow-200';
-        case 'confirmed': return 'bg-green-100 text-green-800 border-green-200';
-        case 'completed': return 'bg-blue-100 text-blue-800 border-blue-200';
-        case 'cancelled': return 'bg-red-100 text-red-800 border-red-200';
-        default: return 'bg-secondary-100 text-secondary-800 border-secondary-200';
-      }
-    }
-
-    function changeFilter(status) {
+    function filterTable(status) {
       currentFilter = status;
+
+      // Remove active class from all filters
       document.querySelectorAll('[id^="filter-"]').forEach(btn => {
         btn.className = 'px-3.5 py-1.5 rounded-lg bg-secondary-100 text-secondary-600 hover:bg-secondary-200 transition-all';
       });
+
+      // Set active class
       const activeBtn = document.getElementById(`filter-${status}`);
       if (activeBtn) {
         activeBtn.className = 'px-3.5 py-1.5 rounded-lg bg-primary-600 text-white transition-all';
       }
-      loadBookingsTable();
+
+      renderTable(getBookings());
     }
 
     function deleteBooking(id) {
@@ -437,11 +543,11 @@
         let bookings = getBookings();
         bookings = bookings.filter(b => b.id !== id);
         saveBookings(bookings);
-        loadBookingsTable();
+        renderDashboard();
       }
     }
 
-    // Modal management
+    // Details Modal Controls
     function openModal(id) {
       selectedBookingId = id;
       const bookings = getBookings();
@@ -449,7 +555,7 @@
 
       if (!booking) return;
 
-      // Map text fields
+      // Map Modal Fields
       document.getElementById('modal-booking-id').textContent = booking.id;
       document.getElementById('modal-cust-name').textContent = booking.name;
       document.getElementById('modal-cust-email').textContent = booking.email;
@@ -463,15 +569,13 @@
       document.getElementById('modal-pickup-time').textContent = booking.pickupTime;
       document.getElementById('modal-pickup-address').textContent = booking.pickupLocation;
       document.getElementById('modal-drop-address').textContent = booking.dropLocation;
-      document.getElementById('modal-notes').textContent = booking.notes || 'No special notes.';
 
-      // Load status select input
-      document.getElementById('update-status-select').value = booking.status;
+      document.getElementById('modal-notes').textContent = booking.notes || 'No special requirements.';
 
-      // Load drivers
+      // Load Driver Selection
       const drivers = getDrivers();
       const driverSelect = document.getElementById('assign-driver-select');
-      driverSelect.innerHTML = '<option value="">-- Unassigned / Select Driver --</option>';
+      driverSelect.innerHTML = '<option value="">-- Assign Driver / Change Driver --</option>';
 
       drivers.forEach(driver => {
         if (driver.status === 'Available' || driver.name === booking.driver) {
@@ -483,7 +587,7 @@
         }
       });
 
-      // Show Backdrop modal card
+      // Show Backdrop
       const modal = document.getElementById('details-modal');
       if (modal) modal.classList.add('open');
     }
@@ -494,55 +598,39 @@
       selectedBookingId = null;
     }
 
-    function saveTripChanges() {
+    function confirmAssignment() {
       if (!selectedBookingId) return;
 
       const driverSelect = document.getElementById('assign-driver-select');
-      const statusSelect = document.getElementById('update-status-select');
+      const assignedDriver = driverSelect.value;
 
       let bookings = getBookings();
       const idx = bookings.findIndex(b => b.id === selectedBookingId);
 
       if (idx !== -1) {
-        const oldDriver = bookings[idx].driver;
-        const newDriver = driverSelect.value;
-        const newStatus = statusSelect.value;
-
-        bookings[idx].driver = newDriver;
-        bookings[idx].status = newStatus;
+        bookings[idx].driver = assignedDriver;
+        bookings[idx].status = assignedDriver ? 'confirmed' : 'pending';
         saveBookings(bookings);
 
-        // Update driver's state to On Trip if newly assigned
-        let drivers = getDrivers();
-        if (newDriver && newDriver !== oldDriver) {
-          const dIdx = drivers.findIndex(d => d.name === newDriver);
+        // Update driver's state to On Trip if assigned
+        if (assignedDriver) {
+          let drivers = getDrivers();
+          const dIdx = drivers.findIndex(d => d.name === assignedDriver);
           if (dIdx !== -1) {
             drivers[dIdx].status = 'On Trip';
+            saveDrivers(drivers);
           }
         }
-        // Restore old driver status to Available if unassigned
-        if (oldDriver && oldDriver !== newDriver) {
-          const dIdx = drivers.findIndex(d => d.name === oldDriver);
-          if (dIdx !== -1) {
-            drivers[dIdx].status = 'Available';
-          }
-        }
-        saveDrivers(drivers);
 
-        alert(`Booking ${selectedBookingId} updated successfully!`);
+        alert(`Booking updated successfully! Driver ${assignedDriver || 'unassigned'} set.`);
         closeModal();
-        loadBookingsTable();
+        renderDashboard();
       }
     }
 
+    // Initial loading
     document.addEventListener('DOMContentLoaded', () => {
-      loadBookingsTable();
-
-      // Search Input listener
-      document.getElementById('search-input').addEventListener('input', (e) => {
-        searchQuery = e.target.value;
-        loadBookingsTable();
-      });
+      renderDashboard();
     });
   </script>
 </body>
