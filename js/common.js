@@ -139,7 +139,7 @@ function translatePage(lang) {
 }
 
 // 3. Document Ready Setup
-document.addEventListener('DOMContentLoaded', () => {
+function initCommonPage() {
   // Inject Mobile Styles Dynamically to prevent caching issues
   const mobileStyles = document.createElement('style');
   mobileStyles.textContent = `
@@ -309,11 +309,17 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     };
 
-    // Event listeners
-    mobileMenuBtn.addEventListener('click', (e) => {
+    // Event listeners — click + touch for reliable mobile open
+    const openMenu = (e) => {
       e.preventDefault();
       e.stopPropagation();
-      toggleMobileMenu();
+      toggleMobileMenu(true);
+    };
+
+    mobileMenuBtn.addEventListener('click', openMenu);
+    mobileMenuBtn.addEventListener('touchend', (e) => {
+      e.preventDefault();
+      openMenu(e);
     });
 
     overlay.addEventListener('click', () => {
@@ -370,4 +376,10 @@ document.addEventListener('DOMContentLoaded', () => {
       el.textContent = loadedSettings.hours;
     });
   }
-});
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initCommonPage);
+} else {
+  initCommonPage();
+}

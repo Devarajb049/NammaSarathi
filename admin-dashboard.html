@@ -64,9 +64,6 @@
 
 <body class="min-h-screen bg-secondary-50 text-secondary-900 flex antialiased">
 
-  <!-- Auth Validation and Sidebar utilities -->
-  <script type="module" src="/js/admin.js"></script>
-
   <!-- Mobile menu top panel (visible only on mobile) -->
   <div class="fixed top-0 inset-x-0 bg-white shadow-sm h-14 flex items-center px-4 z-30 md:hidden justify-between">
     <button id="sidebar-toggle" class="p-2 bg-secondary-100 rounded-lg text-secondary-700 hover:bg-secondary-200">
@@ -402,6 +399,7 @@
     </div>
   </div>
 
+  <script src="js/admin.js"></script>
   <!-- Dashboard Logic Script -->
   <script>
     let currentFilter = 'all';

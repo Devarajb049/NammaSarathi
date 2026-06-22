@@ -42,7 +42,7 @@ function handleAdminLogout() {
 }
 
 // 4. Initial Setup on DOM Load
-document.addEventListener('DOMContentLoaded', () => {
+function initAdminPage() {
   // Inject Modal & Overlay Styles Dynamically to prevent caching issues
   const adminStyles = document.createElement('style');
   adminStyles.textContent = `
@@ -90,7 +90,11 @@ document.addEventListener('DOMContentLoaded', () => {
   const sidebarContainer = document.getElementById('admin-sidebar');
 
   if (sidebarToggleBtn && sidebarContainer) {
-    sidebarToggleBtn.addEventListener('click', () => {
+    const toggleSidebar = (e) => {
+      if (e) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
       const isClosed = sidebarContainer.classList.contains('-translate-x-full');
       if (isClosed) {
         sidebarContainer.classList.remove('-translate-x-full');
@@ -99,6 +103,12 @@ document.addEventListener('DOMContentLoaded', () => {
         sidebarContainer.classList.add('-translate-x-full');
         if (sidebarOverlay) sidebarOverlay.classList.remove('active');
       }
+    };
+
+    sidebarToggleBtn.addEventListener('click', toggleSidebar);
+    sidebarToggleBtn.addEventListener('touchend', (e) => {
+      e.preventDefault();
+      toggleSidebar(e);
     });
   }
 
@@ -138,4 +148,10 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
   });
-});
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initAdminPage);
+} else {
+  initAdminPage();
+}
