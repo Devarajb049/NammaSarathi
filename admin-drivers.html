@@ -1,267 +1,286 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Manage Drivers - NammaSarathi</title>
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <!-- Font Awesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Custom stylesheet -->
-    <link rel="stylesheet" href="css/style.css">
-    <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            colors: {
-              primary: {
-                50: '#f0fdf4',
-                100: '#dcfce7',
-                200: '#bbf7d0',
-                300: '#86efac',
-                400: '#4ade80',
-                500: '#22c55e',
-                600: '#16a34a',
-                700: '#15803d',
-                800: '#166534',
-                900: '#14532d',
-              },
-              secondary: {
-                50: '#f8fafc',
-                100: '#f1f5f9',
-                200: '#e2e8f0',
-                300: '#cbd5e1',
-                400: '#94a3b8',
-                500: '#64748b',
-                600: '#475569',
-                700: '#334155',
-                800: '#1e293b',
-                900: '#0f172a',
-              }
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Manage Drivers - NammaSarathi</title>
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Custom stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: {
+              50: '#f0fdf4',
+              100: '#dcfce7',
+              200: '#bbf7d0',
+              300: '#86efac',
+              400: '#4ade80',
+              500: '#22c55e',
+              600: '#16a34a',
+              700: '#15803d',
+              800: '#166534',
+              900: '#14532d',
             },
-            fontFamily: {
-              sans: ['Inter', 'system-ui', 'sans-serif'],
+            secondary: {
+              50: '#f8fafc',
+              100: '#f1f5f9',
+              200: '#e2e8f0',
+              300: '#cbd5e1',
+              400: '#94a3b8',
+              500: '#64748b',
+              600: '#475569',
+              700: '#334155',
+              800: '#1e293b',
+              900: '#0f172a',
             }
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
           }
         }
       }
-    </script>
-  </head>
-  <body class="min-h-screen bg-secondary-50 text-secondary-900 flex antialiased">
+    }
+  </script>
+</head>
 
-    <!-- Auth Validation and Sidebar utilities -->
-    <script src="js/admin.js"></script>
+<body class="min-h-screen bg-secondary-50 text-secondary-900 flex antialiased">
 
-    <!-- Mobile header menu -->
-    <div class="fixed top-0 inset-x-0 bg-white shadow-sm h-14 flex items-center px-4 z-30 md:hidden justify-between">
-      <button id="sidebar-toggle" class="p-2 bg-secondary-100 rounded-lg text-secondary-700 hover:bg-secondary-200">
-        <i class="fa-solid fa-bars text-lg"></i>
-      </button>
-      <div class="flex items-center space-x-2">
-        <i class="fa-solid fa-car text-primary-600 text-xl"></i>
-        <span class="font-bold text-secondary-900 text-sm">NammaSarathi</span>
+  <!-- Auth Validation and Sidebar utilities -->
+  <script src="js/admin.js"></script>
+
+  <!-- Mobile header menu -->
+  <div class="fixed top-0 inset-x-0 bg-white shadow-sm h-14 flex items-center px-4 z-30 md:hidden justify-between">
+    <button id="sidebar-toggle" class="p-2 bg-secondary-100 rounded-lg text-secondary-700 hover:bg-secondary-200">
+      <i class="fa-solid fa-bars text-lg"></i>
+    </button>
+    <div class="flex items-center space-x-2">
+      <i class="fa-solid fa-car text-primary-600 text-xl"></i>
+      <span class="font-bold text-secondary-900 text-sm">NammaSarathi</span>
+    </div>
+    <div class="w-8"></div>
+  </div>
+
+  <!-- Sidebar overlay -->
+  <div id="sidebar-overlay" class="fixed inset-0 bg-black/50 z-30 sidebar-overlay-transition md:hidden"></div>
+
+  <!-- Navigation Sidebar Container -->
+  <aside id="admin-sidebar"
+    class="fixed md:static inset-y-0 left-0 z-40 w-64 bg-secondary-900 flex flex-col justify-between transform -translate-x-full md:translate-x-0 transition-transform duration-300 ease-in-out">
+    <div class="flex flex-col h-full">
+      <div class="p-6 border-b border-secondary-800">
+        <a href="index.html" class="flex items-center space-x-2">
+          <i class="fa-solid fa-car text-primary-400 text-2xl"></i>
+          <span class="text-xl font-bold text-white">NammaSarathi</span>
+        </a>
+        <span class="text-xs text-secondary-400 mt-1 block">Admin Panel</span>
       </div>
-      <div class="w-8"></div>
+
+      <nav class="flex-1 p-4">
+        <ul class="space-y-2">
+          <li>
+            <a href="admin-dashboard.html"
+              class="flex items-center gap-3 px-4 py-3 rounded-lg text-secondary-300 hover:bg-secondary-800 hover:text-white transition-colors">
+              <i class="fa-solid fa-chart-line w-5"></i>
+              <span>Dashboard</span>
+            </a>
+          </li>
+          <li>
+            <a href="admin-bookings.html"
+              class="flex items-center gap-3 px-4 py-3 rounded-lg text-secondary-300 hover:bg-secondary-800 hover:text-white transition-colors">
+              <i class="fa-solid fa-calendar w-5"></i>
+              <span>Bookings</span>
+            </a>
+          </li>
+          <li>
+            <a href="admin-drivers.html"
+              class="flex items-center gap-3 px-4 py-3 rounded-lg text-white bg-primary-600 transition-colors">
+              <i class="fa-solid fa-users w-5"></i>
+              <span>Drivers</span>
+            </a>
+          </li>
+          <li>
+            <a href="admin-schedule.html"
+              class="flex items-center gap-3 px-4 py-3 rounded-lg text-secondary-300 hover:bg-secondary-800 hover:text-white transition-colors">
+              <i class="fa-solid fa-clock w-5"></i>
+              <span>Schedule</span>
+            </a>
+          </li>
+          <li>
+            <a href="admin-settings.html"
+              class="flex items-center gap-3 px-4 py-3 rounded-lg text-secondary-300 hover:bg-secondary-800 hover:text-white transition-colors">
+              <i class="fa-solid fa-gear w-5"></i>
+              <span>Settings</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+      <div class="p-4 border-t border-secondary-800">
+        <div class="px-4 py-2 mb-3">
+          <p class="text-white text-sm font-medium">admin@gmail.com</p>
+          <p class="text-secondary-400 text-xs">Administrator</p>
+        </div>
+        <button
+          class="logout-btn flex items-center gap-3 px-4 py-3 w-full rounded-lg text-secondary-300 hover:bg-red-600 hover:text-white transition-colors">
+          <i class="fa-solid fa-right-from-bracket"></i>
+          <span>Logout</span>
+        </button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main Workspace -->
+  <main class="flex-1 p-6 md:p-10 pt-20 md:pt-10 overflow-y-auto min-h-screen fade-in">
+    <!-- Header -->
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
+      <div>
+        <h1 class="text-2xl font-bold text-secondary-900 font-semibold">Drivers Directory</h1>
+        <p class="text-secondary-600 text-sm">Add acting drivers, verify contact ratings, and change duty statuses.</p>
+      </div>
+      <button onclick="openAddModal()"
+        class="bg-primary-600 hover:bg-primary-700 text-white font-semibold py-2.5 px-5 rounded-lg text-sm shadow-md transition-colors flex items-center gap-2">
+        <i class="fa-solid fa-user-plus"></i> Add New Driver
+      </button>
     </div>
 
-    <!-- Sidebar overlay -->
-    <div id="sidebar-overlay" class="fixed inset-0 bg-black/50 z-30 sidebar-overlay-transition md:hidden"></div>
-
-    <!-- Navigation Sidebar Container -->
-    <aside id="admin-sidebar" class="fixed md:static inset-y-0 left-0 z-40 w-64 bg-secondary-900 flex flex-col justify-between transform -translate-x-full md:translate-x-0 transition-transform duration-300 ease-in-out">
-      <div class="flex flex-col h-full">
-        <div class="p-6 border-b border-secondary-800">
-          <a href="index.html" class="flex items-center space-x-2">
-            <i class="fa-solid fa-car text-primary-400 text-2xl"></i>
-            <span class="text-xl font-bold text-white">NammaSarathi</span>
-          </a>
-          <span class="text-xs text-secondary-400 mt-1 block">Admin Panel</span>
+    <!-- Live Driver Stats row -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+      <div class="bg-white rounded-xl p-5 border border-secondary-200/50 shadow-sm flex items-center justify-between">
+        <div>
+          <p class="text-xs text-secondary-500 font-bold uppercase tracking-wider">Total Onboarded</p>
+          <p id="stat-total-drivers" class="text-2xl font-bold text-secondary-900 mt-1">0</p>
         </div>
-
-        <nav class="flex-1 p-4">
-          <ul class="space-y-2">
-            <li>
-              <a href="admin-dashboard.html" class="flex items-center gap-3 px-4 py-3 rounded-lg text-secondary-300 hover:bg-secondary-800 hover:text-white transition-colors">
-                <i class="fa-solid fa-chart-line w-5"></i>
-                <span>Dashboard</span>
-              </a>
-            </li>
-            <li>
-              <a href="admin-bookings.html" class="flex items-center gap-3 px-4 py-3 rounded-lg text-secondary-300 hover:bg-secondary-800 hover:text-white transition-colors">
-                <i class="fa-solid fa-calendar w-5"></i>
-                <span>Bookings</span>
-              </a>
-            </li>
-            <li>
-              <a href="admin-drivers.html" class="flex items-center gap-3 px-4 py-3 rounded-lg text-white bg-primary-600 transition-colors">
-                <i class="fa-solid fa-users w-5"></i>
-                <span>Drivers</span>
-              </a>
-            </li>
-            <li>
-              <a href="admin-schedule.html" class="flex items-center gap-3 px-4 py-3 rounded-lg text-secondary-300 hover:bg-secondary-800 hover:text-white transition-colors">
-                <i class="fa-solid fa-clock w-5"></i>
-                <span>Schedule</span>
-              </a>
-            </li>
-            <li>
-              <a href="admin-settings.html" class="flex items-center gap-3 px-4 py-3 rounded-lg text-secondary-300 hover:bg-secondary-800 hover:text-white transition-colors">
-                <i class="fa-solid fa-gear w-5"></i>
-                <span>Settings</span>
-              </a>
-            </li>
-          </ul>
-        </nav>
-
-        <div class="p-4 border-t border-secondary-800">
-          <div class="px-4 py-2 mb-3">
-            <p class="text-white text-sm font-medium">admin@gmail.com</p>
-            <p class="text-secondary-400 text-xs">Administrator</p>
-          </div>
-          <button class="logout-btn flex items-center gap-3 px-4 py-3 w-full rounded-lg text-secondary-300 hover:bg-red-600 hover:text-white transition-colors">
-            <i class="fa-solid fa-right-from-bracket"></i>
-            <span>Logout</span>
-          </button>
+        <div class="w-10 h-10 bg-secondary-100 rounded-lg flex items-center justify-center text-secondary-700">
+          <i class="fa-solid fa-users text-lg"></i>
         </div>
       </div>
-    </aside>
 
-    <!-- Main Workspace -->
-    <main class="flex-1 p-6 md:p-10 pt-20 md:pt-10 overflow-y-auto min-h-screen fade-in">
-      <!-- Header -->
-      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
+      <div class="bg-white rounded-xl p-5 border border-secondary-200/50 shadow-sm flex items-center justify-between">
         <div>
-          <h1 class="text-2xl font-bold text-secondary-900 font-semibold">Drivers Directory</h1>
-          <p class="text-secondary-600 text-sm">Add acting drivers, verify contact ratings, and change duty statuses.</p>
+          <p class="text-xs text-secondary-500 font-bold uppercase tracking-wider">Available on Standby</p>
+          <p id="stat-avail-drivers" class="text-2xl font-bold text-green-600 mt-1">0</p>
         </div>
-        <button onclick="openAddModal()" class="bg-primary-600 hover:bg-primary-700 text-white font-semibold py-2.5 px-5 rounded-lg text-sm shadow-md transition-colors flex items-center gap-2">
-          <i class="fa-solid fa-user-plus"></i> Add New Driver
+        <div class="w-10 h-10 bg-green-50 rounded-lg flex items-center justify-center text-green-600">
+          <i class="fa-solid fa-circle-check text-lg"></i>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-xl p-5 border border-secondary-200/50 shadow-sm flex items-center justify-between">
+        <div>
+          <p class="text-xs text-secondary-500 font-bold uppercase tracking-wider">Currently On Trip</p>
+          <p id="stat-trip-drivers" class="text-2xl font-bold text-yellow-600 mt-1">0</p>
+        </div>
+        <div class="w-10 h-10 bg-yellow-50 rounded-lg flex items-center justify-center text-yellow-600">
+          <i class="fa-solid fa-car text-lg"></i>
+        </div>
+      </div>
+    </div>
+
+    <!-- Drivers Directory Table -->
+    <div class="bg-white rounded-xl shadow-sm border border-secondary-200/50 overflow-hidden">
+      <div class="p-6 border-b border-secondary-200">
+        <h2 class="text-lg font-bold text-secondary-900">Drivers List</h2>
+      </div>
+
+      <div class="overflow-x-auto">
+        <table class="w-full text-left min-w-[800px]">
+          <thead
+            class="bg-secondary-50 text-secondary-600 text-xs font-bold uppercase border-b border-secondary-200 tracking-wider">
+            <tr>
+              <th class="px-6 py-4">Driver ID</th>
+              <th class="px-6 py-4">Full Name</th>
+              <th class="px-6 py-4">Phone Number</th>
+              <th class="px-6 py-4">Customer Rating</th>
+              <th class="px-6 py-4">Current Status</th>
+              <th class="px-6 py-4 text-right">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="drivers-table-body" class="divide-y divide-secondary-200 text-sm">
+            <!-- Rendered dynamically -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+
+  <!-- Add Driver Modal Dialog -->
+  <div id="add-modal"
+    class="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4 modal-backdrop-transition">
+    <div class="bg-white rounded-2xl shadow-xl max-w-md w-full overflow-hidden modal-card-transition"
+      id="add-modal-card">
+      <div class="p-5 border-b border-secondary-200 bg-secondary-50 flex justify-between items-center">
+        <h3 class="text-lg font-bold text-secondary-900">Register New Acting Driver</h3>
+        <button onclick="closeAddModal()" class="text-secondary-500 hover:bg-secondary-200 p-2 rounded-lg">
+          <i class="fa-solid fa-xmark"></i>
         </button>
       </div>
 
-      <!-- Live Driver Stats row -->
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-        <div class="bg-white rounded-xl p-5 border border-secondary-200/50 shadow-sm flex items-center justify-between">
-          <div>
-            <p class="text-xs text-secondary-500 font-bold uppercase tracking-wider">Total Onboarded</p>
-            <p id="stat-total-drivers" class="text-2xl font-bold text-secondary-900 mt-1">0</p>
-          </div>
-          <div class="w-10 h-10 bg-secondary-100 rounded-lg flex items-center justify-center text-secondary-700">
-            <i class="fa-solid fa-users text-lg"></i>
-          </div>
+      <form id="add-driver-form" class="p-6 space-y-4">
+        <div class="space-y-1.5">
+          <label for="new-driver-name" class="text-xs font-bold text-secondary-600">Full Name *</label>
+          <input type="text" id="new-driver-name" required placeholder="Driver's full name"
+            class="w-full px-3.5 py-2.5 border border-secondary-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary-500" />
         </div>
 
-        <div class="bg-white rounded-xl p-5 border border-secondary-200/50 shadow-sm flex items-center justify-between">
-          <div>
-            <p class="text-xs text-secondary-500 font-bold uppercase tracking-wider">Available on Standby</p>
-            <p id="stat-avail-drivers" class="text-2xl font-bold text-green-600 mt-1">0</p>
-          </div>
-          <div class="w-10 h-10 bg-green-50 rounded-lg flex items-center justify-center text-green-600">
-            <i class="fa-solid fa-circle-check text-lg"></i>
-          </div>
+        <div class="space-y-1.5">
+          <label for="new-driver-phone" class="text-xs font-bold text-secondary-600">Phone Number *</label>
+          <input type="tel" id="new-driver-phone" required placeholder="+91 XXXXX XXXXX"
+            class="w-full px-3.5 py-2.5 border border-secondary-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary-500" />
         </div>
 
-        <div class="bg-white rounded-xl p-5 border border-secondary-200/50 shadow-sm flex items-center justify-between">
-          <div>
-            <p class="text-xs text-secondary-500 font-bold uppercase tracking-wider">Currently On Trip</p>
-            <p id="stat-trip-drivers" class="text-2xl font-bold text-yellow-600 mt-1">0</p>
-          </div>
-          <div class="w-10 h-10 bg-yellow-50 rounded-lg flex items-center justify-center text-yellow-600">
-            <i class="fa-solid fa-car text-lg"></i>
-          </div>
-        </div>
-      </div>
-
-      <!-- Drivers Directory Table -->
-      <div class="bg-white rounded-xl shadow-sm border border-secondary-200/50 overflow-hidden">
-        <div class="p-6 border-b border-secondary-200">
-          <h2 class="text-lg font-bold text-secondary-900">Drivers List</h2>
+        <div class="space-y-1.5">
+          <label for="new-driver-status" class="text-xs font-bold text-secondary-600">Initial Standby Status</label>
+          <select id="new-driver-status"
+            class="w-full px-3.5 py-2.5 border border-secondary-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary-500">
+            <option value="Available">Available</option>
+            <option value="On Trip">On Trip</option>
+            <option value="Inactive">Inactive</option>
+          </select>
         </div>
 
-        <div class="overflow-x-auto">
-          <table class="w-full text-left min-w-[800px]">
-            <thead class="bg-secondary-50 text-secondary-600 text-xs font-bold uppercase border-b border-secondary-200 tracking-wider">
-              <tr>
-                <th class="px-6 py-4">Driver ID</th>
-                <th class="px-6 py-4">Full Name</th>
-                <th class="px-6 py-4">Phone Number</th>
-                <th class="px-6 py-4">Customer Rating</th>
-                <th class="px-6 py-4">Current Status</th>
-                <th class="px-6 py-4 text-right">Actions</th>
-              </tr>
-            </thead>
-            <tbody id="drivers-table-body" class="divide-y divide-secondary-200 text-sm">
-              <!-- Rendered dynamically -->
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </main>
-
-    <!-- Add Driver Modal Dialog -->
-    <div id="add-modal" class="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4 modal-backdrop-transition">
-      <div class="bg-white rounded-2xl shadow-xl max-w-md w-full overflow-hidden modal-card-transition" id="add-modal-card">
-        <div class="p-5 border-b border-secondary-200 bg-secondary-50 flex justify-between items-center">
-          <h3 class="text-lg font-bold text-secondary-900">Register New Acting Driver</h3>
-          <button onclick="closeAddModal()" class="text-secondary-500 hover:bg-secondary-200 p-2 rounded-lg">
-            <i class="fa-solid fa-xmark"></i>
+        <div class="pt-4 border-t border-secondary-100 flex justify-end gap-3">
+          <button type="button" onclick="closeAddModal()"
+            class="px-4 py-2 border border-secondary-300 text-secondary-700 hover:bg-secondary-100 rounded-lg text-sm font-semibold">
+            Cancel
+          </button>
+          <button type="submit"
+            class="bg-primary-600 hover:bg-primary-700 text-white font-semibold py-2 px-5 rounded-lg text-sm shadow-md">
+            Register Driver
           </button>
         </div>
-
-        <form id="add-driver-form" class="p-6 space-y-4">
-          <div class="space-y-1.5">
-            <label for="new-driver-name" class="text-xs font-bold text-secondary-600">Full Name *</label>
-            <input type="text" id="new-driver-name" required placeholder="Driver's full name" class="w-full px-3.5 py-2.5 border border-secondary-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary-500" />
-          </div>
-
-          <div class="space-y-1.5">
-            <label for="new-driver-phone" class="text-xs font-bold text-secondary-600">Phone Number *</label>
-            <input type="tel" id="new-driver-phone" required placeholder="+91 XXXXX XXXXX" class="w-full px-3.5 py-2.5 border border-secondary-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary-500" />
-          </div>
-
-          <div class="space-y-1.5">
-            <label for="new-driver-status" class="text-xs font-bold text-secondary-600">Initial Standby Status</label>
-            <select id="new-driver-status" class="w-full px-3.5 py-2.5 border border-secondary-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary-500">
-              <option value="Available">Available</option>
-              <option value="On Trip">On Trip</option>
-              <option value="Inactive">Inactive</option>
-            </select>
-          </div>
-
-          <div class="pt-4 border-t border-secondary-100 flex justify-end gap-3">
-            <button type="button" onclick="closeAddModal()" class="px-4 py-2 border border-secondary-300 text-secondary-700 hover:bg-secondary-100 rounded-lg text-sm font-semibold">
-              Cancel
-            </button>
-            <button type="submit" class="bg-primary-600 hover:bg-primary-700 text-white font-semibold py-2 px-5 rounded-lg text-sm shadow-md">
-              Register Driver
-            </button>
-          </div>
-        </form>
-      </div>
+      </form>
     </div>
+  </div>
 
-    <!-- Logic Script -->
-    <script>
-      function renderDriversPage() {
-        const drivers = getDrivers();
-        
-        // Stats calculations
-        document.getElementById('stat-total-drivers').textContent = drivers.length;
-        document.getElementById('stat-avail-drivers').textContent = drivers.filter(d => d.status === 'Available').length;
-        document.getElementById('stat-trip-drivers').textContent = drivers.filter(d => d.status === 'On Trip').length;
+  <!-- Logic Script -->
+  <script>
+    function renderDriversPage() {
+      const drivers = getDrivers();
 
-        // Render Table Body
-        const tbody = document.getElementById('drivers-table-body');
-        tbody.innerHTML = '';
+      // Stats calculations
+      document.getElementById('stat-total-drivers').textContent = drivers.length;
+      document.getElementById('stat-avail-drivers').textContent = drivers.filter(d => d.status === 'Available').length;
+      document.getElementById('stat-trip-drivers').textContent = drivers.filter(d => d.status === 'On Trip').length;
 
-        if (drivers.length === 0) {
-          tbody.innerHTML = `
+      // Render Table Body
+      const tbody = document.getElementById('drivers-table-body');
+      tbody.innerHTML = '';
+
+      if (drivers.length === 0) {
+        tbody.innerHTML = `
             <tr>
               <td colspan="6" class="px-6 py-12 text-center text-secondary-400">
                 <i class="fa-solid fa-users-slash text-3xl mb-2 block"></i>
@@ -269,14 +288,14 @@
               </td>
             </tr>
           `;
-          return;
-        }
+        return;
+      }
 
-        drivers.forEach(driver => {
-          const tr = document.createElement('tr');
-          tr.className = 'hover:bg-secondary-50/80 transition-colors';
-          
-          tr.innerHTML = `
+      drivers.forEach(driver => {
+        const tr = document.createElement('tr');
+        tr.className = 'hover:bg-secondary-50/80 transition-colors';
+
+        tr.innerHTML = `
             <td class="px-6 py-4 whitespace-nowrap font-bold text-secondary-900">${driver.id}</td>
             <td class="px-6 py-4 whitespace-nowrap font-semibold text-secondary-900">${driver.name}</td>
             <td class="px-6 py-4 whitespace-nowrap text-secondary-600">${driver.phone}</td>
@@ -298,80 +317,81 @@
               </button>
             </td>
           `;
-          tbody.appendChild(tr);
-        });
-      }
-
-      function changeDriverStatus(id, newStatus) {
-        let drivers = getDrivers();
-        const idx = drivers.findIndex(d => d.id === id);
-        if (idx !== -1) {
-          drivers[idx].status = newStatus;
-          saveDrivers(drivers);
-          
-          // Also update stats numbers
-          document.getElementById('stat-avail-drivers').textContent = drivers.filter(d => d.status === 'Available').length;
-          document.getElementById('stat-trip-drivers').textContent = drivers.filter(d => d.status === 'On Trip').length;
-        }
-      }
-
-      function deleteDriver(id) {
-        if (confirm(`Are you sure you want to delete this driver registration?`)) {
-          let drivers = getDrivers();
-          drivers = drivers.filter(d => d.id !== id);
-          saveDrivers(drivers);
-          renderDriversPage();
-        }
-      }
-
-      // Add Driver Modal Controls
-      function openAddModal() {
-        const modal = document.getElementById('add-modal');
-        if (modal) modal.classList.add('open');
-      }
-
-      function closeAddModal() {
-        const modal = document.getElementById('add-modal');
-        if (modal) modal.classList.remove('open');
-        setTimeout(() => {
-          document.getElementById('add-driver-form').reset();
-        }, 250);
-      }
-
-      document.addEventListener('DOMContentLoaded', () => {
-        renderDriversPage();
-
-        // Form Submit
-        document.getElementById('add-driver-form').addEventListener('submit', (e) => {
-          e.preventDefault();
-          const name = document.getElementById('new-driver-name').value.trim();
-          const phone = document.getElementById('new-driver-phone').value.trim();
-          const status = document.getElementById('new-driver-status').value;
-
-          const drivers = getDrivers();
-          // Generate new ID
-          const maxNum = drivers.reduce((max, d) => {
-            const num = parseInt(d.id.replace('DR', ''));
-            return num > max ? num : max;
-          }, 0);
-          const nextId = 'DR' + String(maxNum + 1).padStart(3, '0');
-
-          const newDriver = {
-            id: nextId,
-            name,
-            phone,
-            status,
-            rating: 5.0
-          };
-
-          drivers.push(newDriver);
-          saveDrivers(drivers);
-          
-          alert(`Driver ${name} registered successfully with ID ${nextId}!`);
-          closeAddModal();
-          renderDriversPage();
-        });
+        tbody.appendChild(tr);
       });
-    </script>
-  </body>
+    }
+
+    function changeDriverStatus(id, newStatus) {
+      let drivers = getDrivers();
+      const idx = drivers.findIndex(d => d.id === id);
+      if (idx !== -1) {
+        drivers[idx].status = newStatus;
+        saveDrivers(drivers);
+
+        // Also update stats numbers
+        document.getElementById('stat-avail-drivers').textContent = drivers.filter(d => d.status === 'Available').length;
+        document.getElementById('stat-trip-drivers').textContent = drivers.filter(d => d.status === 'On Trip').length;
+      }
+    }
+
+    function deleteDriver(id) {
+      if (confirm(`Are you sure you want to delete this driver registration?`)) {
+        let drivers = getDrivers();
+        drivers = drivers.filter(d => d.id !== id);
+        saveDrivers(drivers);
+        renderDriversPage();
+      }
+    }
+
+    // Add Driver Modal Controls
+    function openAddModal() {
+      const modal = document.getElementById('add-modal');
+      if (modal) modal.classList.add('open');
+    }
+
+    function closeAddModal() {
+      const modal = document.getElementById('add-modal');
+      if (modal) modal.classList.remove('open');
+      setTimeout(() => {
+        document.getElementById('add-driver-form').reset();
+      }, 250);
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      renderDriversPage();
+
+      // Form Submit
+      document.getElementById('add-driver-form').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const name = document.getElementById('new-driver-name').value.trim();
+        const phone = document.getElementById('new-driver-phone').value.trim();
+        const status = document.getElementById('new-driver-status').value;
+
+        const drivers = getDrivers();
+        // Generate new ID
+        const maxNum = drivers.reduce((max, d) => {
+          const num = parseInt(d.id.replace('DR', ''));
+          return num > max ? num : max;
+        }, 0);
+        const nextId = 'DR' + String(maxNum + 1).padStart(3, '0');
+
+        const newDriver = {
+          id: nextId,
+          name,
+          phone,
+          status,
+          rating: 5.0
+        };
+
+        drivers.push(newDriver);
+        saveDrivers(drivers);
+
+        alert(`Driver ${name} registered successfully with ID ${nextId}!`);
+        closeAddModal();
+        renderDriversPage();
+      });
+    });
+  </script>
+</body>
+
 </html>

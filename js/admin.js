@@ -118,16 +118,24 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // Highlight active sidebar item
+  const getBasename = (path) => {
+    const segment = path.replace(/\/$/, '').split('/').pop() || '';
+    return segment.split('.')[0].toLowerCase();
+  };
   const currentPath = window.location.pathname;
+  const currentClean = getBasename(currentPath);
   const sidebarLinks = document.querySelectorAll('#admin-sidebar nav a');
   sidebarLinks.forEach(link => {
     const href = link.getAttribute('href');
-    if (href && currentPath.endsWith(href)) {
-      link.classList.add('bg-primary-600', 'text-white');
-      link.classList.remove('text-secondary-300', 'hover:bg-secondary-800');
-    } else {
-      link.classList.remove('bg-primary-600', 'text-white');
-      link.classList.add('text-secondary-300', 'hover:bg-secondary-800');
+    if (href) {
+      const hrefClean = getBasename(href);
+      if (currentClean === hrefClean) {
+        link.classList.add('bg-primary-600', 'text-white');
+        link.classList.remove('text-secondary-300', 'hover:bg-secondary-800');
+      } else {
+        link.classList.remove('bg-primary-600', 'text-white');
+        link.classList.add('text-secondary-300', 'hover:bg-secondary-800');
+      }
     }
   });
 });

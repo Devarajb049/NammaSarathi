@@ -176,6 +176,7 @@ document.addEventListener('DOMContentLoaded', () => {
       transform: translateX(0) !important;
       pointer-events: auto !important;
       visibility: visible !important;
+      opacity: 1 !important;
     }
     
     #mobile-menu-overlay {
@@ -193,6 +194,7 @@ document.addEventListener('DOMContentLoaded', () => {
     #mobile-menu-overlay.open {
       pointer-events: auto !important;
       visibility: visible !important;
+      opacity: 1 !important;
     }
 
     @media (min-width: 768px) {
@@ -259,6 +261,11 @@ document.addEventListener('DOMContentLoaded', () => {
   const mobileMenu = document.getElementById('mobile-menu');
   
   if (mobileMenuBtn && mobileMenu) {
+    // Move menu to body so fixed positioning is not clipped by header/nav
+    if (mobileMenu.parentElement !== document.body) {
+      document.body.appendChild(mobileMenu);
+    }
+
     // 1. Create and inject overlay if not exists
     let overlay = document.getElementById('mobile-menu-overlay');
     if (!overlay) {
@@ -277,7 +284,7 @@ document.addEventListener('DOMContentLoaded', () => {
           <i class="fa-solid fa-car text-primary-600 text-xl"></i>
           <span class="font-bold text-secondary-900 text-lg">NammaSarathi</span>
         </div>
-        <button id="mobile-menu-close-btn" class="p-1.5 hover:bg-secondary-100 rounded-lg text-secondary-500 transition-colors">
+        <button type="button" id="mobile-menu-close-btn" aria-label="Close menu" class="p-1.5 hover:bg-secondary-100 rounded-lg text-secondary-500 transition-colors">
           <i class="fa-solid fa-xmark text-xl"></i>
         </button>
       `;
@@ -292,16 +299,19 @@ document.addEventListener('DOMContentLoaded', () => {
       if (toOpen) {
         mobileMenu.classList.add('open');
         overlay.classList.add('open');
+        mobileMenuBtn.setAttribute('aria-expanded', 'true');
         document.body.style.overflow = 'hidden'; // prevent page scroll behind sidebar
       } else {
         mobileMenu.classList.remove('open');
         overlay.classList.remove('open');
+        mobileMenuBtn.setAttribute('aria-expanded', 'false');
         document.body.style.overflow = '';
       }
     };
 
     // Event listeners
     mobileMenuBtn.addEventListener('click', (e) => {
+      e.preventDefault();
       e.stopPropagation();
       toggleMobileMenu();
     });
@@ -315,12 +325,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const closeBtn = document.getElementById('mobile-menu-close-btn');
     if (closeBtn) {
-      closeBtn.addEventListener('click', () => {
+      closeBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
         toggleMobileMenu(false);
       });
-      closeBtn.addEventListener('touchstart', (e) => {
-        toggleMobileMenu(false);
-      }, { passive: true });
     }
 
     mobileMenu.querySelectorAll('a[href]').forEach((link) => {
@@ -336,6 +345,11 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
 
+    window.addEventListener('resize', () => {
+      if (window.innerWidth >= 768) {
+        toggleMobileMenu(false);
+      }
+    });
   }
 
   // Load static settings details (phone, email, address, etc.) on frontend pages
