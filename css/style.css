@@ -111,6 +111,14 @@
   }
 }
 
+/* Mobile hamburger button — keep tappable above header content */
+#mobile-menu-btn {
+  position: relative;
+  z-index: 51;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
 /* Mobile Slide-out Sidebar Menu (Frontend) */
 #mobile-menu {
   position: fixed !important;
