@@ -140,6 +140,72 @@ function translatePage(lang) {
 
 // 3. Document Ready Setup
 document.addEventListener('DOMContentLoaded', () => {
+  // Inject Mobile Styles Dynamically to prevent caching issues
+  const mobileStyles = document.createElement('style');
+  mobileStyles.textContent = `
+    /* Compact Navbar for Mobile View */
+    @media (max-width: 767.98px) {
+      header nav div.h-16 {
+        height: 3.5rem !important;
+      }
+    }
+
+    /* Mobile Slide-out Sidebar Menu (Frontend) */
+    #mobile-menu {
+      position: fixed !important;
+      top: 0 !important;
+      right: 0 !important;
+      bottom: 0 !important;
+      width: 280px !important;
+      background-color: #ffffff !important;
+      z-index: 9999 !important;
+      padding: 24px !important;
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04) !important;
+      transform: translateX(100%) !important;
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+      display: flex !important;
+      flex-direction: column !important;
+      border-left: 1px solid #e2e8f0 !important;
+      margin: 0 !important;
+      border-top: none !important;
+      pointer-events: none !important;
+      visibility: hidden !important;
+    }
+    
+    #mobile-menu.open {
+      transform: translateX(0) !important;
+      pointer-events: auto !important;
+      visibility: visible !important;
+    }
+    
+    #mobile-menu-overlay {
+      position: fixed !important;
+      inset: 0 !important;
+      background-color: rgba(0, 0, 0, 0.5) !important;
+      z-index: 9998 !important;
+      opacity: 0 !important;
+      pointer-events: none !important;
+      transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out !important;
+      cursor: pointer !important;
+      visibility: hidden !important;
+    }
+    
+    #mobile-menu-overlay.open {
+      pointer-events: auto !important;
+      visibility: visible !important;
+    }
+
+    @media (min-width: 768px) {
+      #mobile-menu {
+        display: none !important;
+      }
+      #mobile-menu-overlay {
+        display: none !important;
+      }
+    }
+  `;
+  document.head.appendChild(mobileStyles);
+
   // Initialize mock DB data
   initializeMockDB();
 
@@ -162,44 +228,112 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Set navigation active state styles based on filename
   const currentPath = window.location.pathname;
-  const navLinks = document.querySelectorAll('nav a, #mobile-menu a');
+  const navLinks = document.querySelectorAll('nav a[data-i18n], #mobile-menu a[data-i18n]');
   
   navLinks.forEach((link) => {
     const href = link.getAttribute('href');
     if (href) {
       const isHome = href === 'index.html' || href === '/' || href === './';
-      if (isHome && (currentPath === '/' || currentPath.endsWith('index.html') || currentPath === '')) {
+      const isCurrentHome = currentPath === '/' || currentPath.endsWith('index.html') || currentPath === '';
+      const isMatch = (isHome && isCurrentHome) || (!isHome && currentPath.endsWith(href));
+      
+      if (isMatch) {
         link.classList.add('text-primary-600');
-        link.classList.remove('text-secondary-600');
-      } else if (!isHome && currentPath.endsWith(href)) {
-        link.classList.add('text-primary-600');
-        link.classList.remove('text-secondary-600');
-        // If it's a mobile nav link highlight
+        link.classList.remove('text-secondary-600', 'text-secondary-400');
         if (link.closest('#mobile-menu')) {
           link.classList.add('bg-primary-50');
+        }
+      } else {
+        link.classList.remove('text-primary-600', 'bg-primary-50');
+        if (link.getAttribute('data-i18n') === 'nav_admin') {
+          link.classList.add('text-secondary-400');
+        } else {
+          link.classList.add('text-secondary-600');
         }
       }
     }
   });
 
-  // Mobile menu toggle logic with smooth height slide transitions
+  // Mobile slide-out menu layout initialization & logic
   const mobileMenuBtn = document.getElementById('mobile-menu-btn');
   const mobileMenu = document.getElementById('mobile-menu');
   
   if (mobileMenuBtn && mobileMenu) {
-    mobileMenu.classList.add('mobile-menu-transition');
+    // 1. Create and inject overlay if not exists
+    let overlay = document.getElementById('mobile-menu-overlay');
+    if (!overlay) {
+      overlay = document.createElement('div');
+      overlay.id = 'mobile-menu-overlay';
+      document.body.appendChild(overlay);
+    }
+
+    // 2. Create and inject header inside mobile menu for close action and branding
+    const hasHeader = mobileMenu.querySelector('.mobile-menu-header');
+    if (!hasHeader) {
+      const menuHeader = document.createElement('div');
+      menuHeader.className = 'mobile-menu-header flex justify-between items-center pb-4 border-b border-secondary-100 mb-6';
+      menuHeader.innerHTML = `
+        <div class="flex items-center space-x-2">
+          <i class="fa-solid fa-car text-primary-600 text-xl"></i>
+          <span class="font-bold text-secondary-900 text-lg">NammaSarathi</span>
+        </div>
+        <button id="mobile-menu-close-btn" class="p-1.5 hover:bg-secondary-100 rounded-lg text-secondary-500 transition-colors">
+          <i class="fa-solid fa-xmark text-xl"></i>
+        </button>
+      `;
+      mobileMenu.prepend(menuHeader);
+    }
+
     mobileMenu.classList.remove('hidden');
-    
-    mobileMenuBtn.addEventListener('click', () => {
-      const isOpen = mobileMenu.classList.contains('open');
-      if (!isOpen) {
+
+    // Toggle open state function
+    const toggleMobileMenu = (forceState) => {
+      const toOpen = typeof forceState === 'boolean' ? forceState : !mobileMenu.classList.contains('open');
+      if (toOpen) {
         mobileMenu.classList.add('open');
-        mobileMenuBtn.innerHTML = '<i class="fa-solid fa-xmark h-6 w-6 text-xl"></i>';
+        overlay.classList.add('open');
+        document.body.style.overflow = 'hidden'; // prevent page scroll behind sidebar
       } else {
         mobileMenu.classList.remove('open');
-        mobileMenuBtn.innerHTML = '<i class="fa-solid fa-bars h-6 w-6 text-xl"></i>';
+        overlay.classList.remove('open');
+        document.body.style.overflow = '';
       }
+    };
+
+    // Event listeners
+    mobileMenuBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      toggleMobileMenu();
     });
+
+    overlay.addEventListener('click', () => {
+      toggleMobileMenu(false);
+    });
+    overlay.addEventListener('touchstart', (e) => {
+      toggleMobileMenu(false);
+    }, { passive: true });
+
+    const closeBtn = document.getElementById('mobile-menu-close-btn');
+    if (closeBtn) {
+      closeBtn.addEventListener('click', () => {
+        toggleMobileMenu(false);
+      });
+      closeBtn.addEventListener('touchstart', (e) => {
+        toggleMobileMenu(false);
+      }, { passive: true });
+    }
+
+    mobileMenu.querySelectorAll('a[href]').forEach((link) => {
+      link.addEventListener('click', () => {
+        toggleMobileMenu(false);
+      });
+      link.addEventListener('touchstart', () => {
+        if (mobileMenu.classList.contains('open')) {
+          toggleMobileMenu(false);
+        }
+      }, { passive: true });
+    });
+
   }
 
   // Load static settings details (phone, email, address, etc.) on frontend pages

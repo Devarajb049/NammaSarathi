@@ -66,3 +66,104 @@
     transform: translateY(0);
   }
 }
+
+/* Premium Modal Styles */
+.modal-backdrop-transition {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease-in-out;
+  backdrop-filter: blur(4px);
+}
+
+.modal-backdrop-transition.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.modal-card-transition {
+  transform: scale(0.95);
+  opacity: 0;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease-in-out;
+}
+
+.modal-backdrop-transition.open .modal-card-transition {
+  transform: scale(1);
+  opacity: 1;
+}
+
+/* Sidebar Overlay Transition (Admin Mobile Panel) */
+.sidebar-overlay-transition {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.sidebar-overlay-transition.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Compact Navbar for Mobile View */
+@media (max-width: 767.98px) {
+  header nav div.h-16 {
+    height: 3.5rem !important;
+    /* Reduces from 4rem (h-16) to 3.5rem (h-14) */
+  }
+}
+
+/* Mobile Slide-out Sidebar Menu (Frontend) */
+#mobile-menu {
+  position: fixed !important;
+  top: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  width: 280px !important;
+  background-color: #ffffff !important;
+  z-index: 9999 !important;
+  padding: 24px !important;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04) !important;
+  transform: translateX(100%) !important;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  border-left: 1px solid #e2e8f0 !important;
+  margin: 0 !important;
+  border-top: none !important;
+  pointer-events: none !important;
+  visibility: hidden !important;
+}
+
+#mobile-menu.open {
+  transform: translateX(0) !important;
+  pointer-events: auto !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+#mobile-menu-overlay {
+  position: fixed !important;
+  inset: 0 !important;
+  background-color: rgba(0, 0, 0, 0.5) !important;
+  z-index: 9998 !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out !important;
+  cursor: pointer !important;
+  visibility: hidden !important;
+}
+
+#mobile-menu-overlay.open {
+  pointer-events: auto !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+@media (min-width: 768px) {
+  #mobile-menu {
+    display: none !important;
+  }
+
+  #mobile-menu-overlay {
+    display: none !important;
+  }
+}

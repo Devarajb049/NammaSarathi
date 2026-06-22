@@ -43,6 +43,47 @@ function handleAdminLogout() {
 
 // 4. Initial Setup on DOM Load
 document.addEventListener('DOMContentLoaded', () => {
+  // Inject Modal & Overlay Styles Dynamically to prevent caching issues
+  const adminStyles = document.createElement('style');
+  adminStyles.textContent = `
+    /* Premium Modal Styles */
+    .modal-backdrop-transition {
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease-in-out;
+      backdrop-filter: blur(4px);
+    }
+    
+    .modal-backdrop-transition.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    
+    .modal-card-transition {
+      transform: scale(0.95);
+      opacity: 0;
+      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease-in-out;
+    }
+    
+    .modal-backdrop-transition.open .modal-card-transition {
+      transform: scale(1);
+      opacity: 1;
+    }
+    
+    /* Sidebar Overlay Transition (Admin Mobile Panel) */
+    .sidebar-overlay-transition {
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease-in-out;
+    }
+    
+    .sidebar-overlay-transition.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+  `;
+  document.head.appendChild(adminStyles);
+
   // Mobile sidebar navigation open/close toggling
   const sidebarToggleBtn = document.getElementById('sidebar-toggle');
   const sidebarOverlay = document.getElementById('sidebar-overlay');
