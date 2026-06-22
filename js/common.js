@@ -324,14 +324,16 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     mobileMenu.querySelectorAll('a[href]').forEach((link) => {
-      link.addEventListener('click', () => {
-        toggleMobileMenu(false);
-      });
-      link.addEventListener('touchstart', () => {
-        if (mobileMenu.classList.contains('open')) {
+      link.addEventListener('click', (event) => {
+        const href = link.getAttribute('href');
+        if (href && href !== '#') {
+          event.preventDefault();
           toggleMobileMenu(false);
+          setTimeout(() => {
+            window.location.href = href;
+          }, 100);
         }
-      }, { passive: true });
+      });
     });
 
   }
